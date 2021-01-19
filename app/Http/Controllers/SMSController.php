@@ -50,7 +50,7 @@ class SMSController extends Controller
 
             $http = new Client(['verify' => false]);
        //     try {
-                $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
+                $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                     'query' => [
                         'login' => $login,
                         'password' => $password,
