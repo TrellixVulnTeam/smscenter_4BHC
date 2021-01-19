@@ -12,6 +12,7 @@ class SMSController extends Controller
 {
     // for identification type=1
     public function typeOne(Request $request){
+
         $phone = $request->input('phone');
         $code = $request->input('code');
         $source = $request->input('source');
