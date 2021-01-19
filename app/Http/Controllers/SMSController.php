@@ -156,7 +156,7 @@ class SMSController extends Controller
 
             }
         }while(false);
-        return response()->json($result);
+        //return response()->json($result);
 
     }
 }
