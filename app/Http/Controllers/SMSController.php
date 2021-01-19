@@ -127,6 +127,8 @@ class SMSController extends Controller
 
             $http = new Client(['verify' => false]);
          //   try {
+            var_dump(env('SMS_CONSULT_LOGIN'));
+            die();
                 $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
                     'query' => [
                         'login' => env('SMS_CONSULT_LOGIN'),
