@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/typeOne',[SMSController::class,'typeOne']);
+Route::get('/typeTwo',[SMSController::class,'typeTwo']);
