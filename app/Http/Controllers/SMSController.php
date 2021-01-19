@@ -34,7 +34,7 @@ class SMSController extends Controller
             }
 
             DB::beginTransaction();
-            $s = env('REDIS_HOST');
+            $s = getenv('REDIS_HOST');
             $login = env('SMS_CONSULT_LOGIN');
             $password = env('SMS_CONSULT_PASSWORD');
             $sender = env('SMS_CONSULT_SENDER');
