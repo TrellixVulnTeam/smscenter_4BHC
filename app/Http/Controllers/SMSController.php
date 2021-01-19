@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SMS;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Http\Request;
@@ -43,6 +44,8 @@ class SMSController extends Controller
                 'text' => $text,
                 'phone' => $phone,
                 'status' => 100,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             $http = new Client(['verify' => false]);
