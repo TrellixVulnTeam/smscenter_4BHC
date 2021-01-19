@@ -57,7 +57,10 @@ class SMSController extends Controller
                         'text' => $text
                     ],
                 ]);
-                $result = $response->getBody()->getContents();
+                $res = $response->getBody()->getContents();
+                if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
+                    $result['success'] = true;
+                }
             } catch (BadResponseException $e) {
 
                 if ($e->getCode() == 400) {
@@ -73,6 +76,11 @@ class SMSController extends Controller
             $result['success'] = true;
         }while(false);
         return response()->json($result);
+
+    }
+
+
+    public function typeTwo(Request $request){
 
     }
 }

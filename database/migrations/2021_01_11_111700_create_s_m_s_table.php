@@ -19,6 +19,7 @@ class CreateSMSTable extends Migration
             $table->string('status');
             $table->string('phone');
             $table->string('text');
+            $table->string('leadID')->nullable();
             $table->timestamps();
         });
     }
