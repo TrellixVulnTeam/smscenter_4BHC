@@ -126,9 +126,7 @@ class SMSController extends Controller
             ]);
 
             $http = new Client(['verify' => false]);
-         //   try {
-            var_dump(env('SMS_CONSULT_LOGIN'));
-            die();
+            try {
                 $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
                     'query' => [
                         'login' => env('SMS_CONSULT_LOGIN'),
@@ -146,7 +144,7 @@ class SMSController extends Controller
                 if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
                     $result['success'] = true;
                 }
-       /*     } catch (BadResponseException $e) {
+            } catch (BadResponseException $e) {
                 info($e);
                 if ($e->getCode() == 400) {
 
@@ -156,7 +154,7 @@ class SMSController extends Controller
                     info('Something went wrong. Bad request' . $phone);
                 }
 
-            }*/
+            }
         }while(false);
         //return response()->json($result);
 
