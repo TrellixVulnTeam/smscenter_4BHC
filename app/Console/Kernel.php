@@ -2,8 +2,13 @@
 
 namespace App\Console;
 
+use App\Models\SMS;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Symfony\Component\HttpKernel\HttpClientKernel;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +29,35 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+    //     $schedule->command('statusSMS')->hourly();
+            $schedule->call(function (){
+               $sql = SMS::where('type',1)->get();
+               foreach ($sql as $s){
+                   $http = new Client();
+                   try{
+                       $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+                           'query' => [
+                               'login' => env('SMS_CONSULT_LOGIN'),
+                               'password' => env('SMS_CONSULT_PASSWORD'),
+                               'id' => $s->id,
+                               'type' => 'status',
+                           ],
+                       ]);
+                       $result = $response->getBody()->getContents();
+                       if ($result == 'status=100'){
+                           $update = SMS::where('id',$s->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
+                       }
+                       if ($result == 'status=101'){
+                           $update = SMS::where('id',$s->id)->update(['status'=>101,'updated_at'=>Carbon::now()]);
+                       }
+                       if ($result == 'status=102'){
+                           $update = SMS::where('id',$s->id)->update(['status'=>102,'updated_at'=>Carbon::now()]);
+                       }
+                   }catch (BadResponseException $e){
+                       info($e);
+                   }
+               }
+            })->everyMinute();
     }
 
     /**
