@@ -47,7 +47,9 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-
+            var_dump($login);
+            var_dump($password);
+            var_dump($sender);
             $http = new Client(['verify' => false]);
        //     try {
                 $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
