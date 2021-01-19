@@ -64,7 +64,7 @@ class SMSController extends Controller
                     $result['success'] = true;
                 }
             } catch (BadResponseException $e) {
-
+                info($e);
                 if ($e->getCode() == 400) {
 
                     info('Something went wrong. Bad request' . $phone);
