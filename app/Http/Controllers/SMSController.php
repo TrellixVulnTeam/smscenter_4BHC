@@ -77,7 +77,7 @@ class SMSController extends Controller
             DB::commit();
 //            $result['success'] = true;
         }while(false);
-        return response()->json($result);
+      //  return response()->json($result);
 
     }
 
