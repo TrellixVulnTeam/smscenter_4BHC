@@ -138,6 +138,7 @@ class SMSController extends Controller
                         'text' => $text
                     ],
                 ]);
+                var_dump(env('SMS_CONSULT_LOGIN'));
                 $res = $response->getBody()->getContents();
                 print_r($res);
                 if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
