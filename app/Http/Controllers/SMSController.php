@@ -35,7 +35,7 @@ class SMSController extends Controller
 
             DB::beginTransaction();
             $s = getenv('REDIS_HOST');
-            $login = env('SMS_CONSULT_LOGIN');
+            $login = getenv('SMS_CONSULT_LOGIN');
             $password = env('SMS_CONSULT_PASSWORD');
             $sender = env('SMS_CONSULT_SENDER');
             $text = "Код для подтверждения на сайте $source $code";
