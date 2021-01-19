@@ -34,6 +34,7 @@ class SMSController extends Controller
             }
 
             DB::beginTransaction();
+            $s = env('REDIS_HOST');
             $login = env('SMS_CONSULT_LOGIN');
             $password = env('SMS_CONSULT_PASSWORD');
             $sender = env('SMS_CONSULT_SENDER');
@@ -47,6 +48,7 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            var_dump($s);
             var_dump($login);
             var_dump($password);
             var_dump($sender);
