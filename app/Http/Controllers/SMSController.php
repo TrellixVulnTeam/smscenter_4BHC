@@ -48,12 +48,9 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            var_dump($s);
-            var_dump($login);
-            var_dump($password);
-            var_dump($sender);
+
             $http = new Client(['verify' => false]);
-       //     try {
+            try {
                 $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                     'query' => [
                         'login' => $login,
@@ -66,12 +63,10 @@ class SMSController extends Controller
                     ],
                 ]);
                 $res = $response->getBody()->getContents();
-                print_r($res);
-                info($res);
                 if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
                     $result['success'] = true;
                 }
-            /*} catch (BadResponseException $e) {
+            } catch (BadResponseException $e) {
                 info($e);
                 if ($e->getCode() == 400) {
 
@@ -81,16 +76,85 @@ class SMSController extends Controller
                     info('Something went wrong. Bad request' . $phone);
                 }
 
-            }*/
+            }
             DB::commit();
-//            $result['success'] = true;
+
         }while(false);
-      //  return response()->json($result);
+        return response()->json($result);
 
     }
 
 
     public function typeTwo(Request $request){
+        $phone = $request->input('phone');
+        $amount = $request->input('amount');
+        $leadID = $request->input('leadID');
+        $url = $request->input('url');
+        $result['success'] = false;
+
+        do{
+            if (!$phone){
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+
+            if (!$amount){
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+
+            if (!$leadID){
+                $result['message'] = 'Не передан id лида';
+                break;
+            }
+
+            if (!$url){
+                $result['message'] = 'Не передан ссылка';
+                break;
+            }
+
+            $text = 'Vam ODOBRENO '.$amount.' tg. Dlya polucheniya pereydite '.$url;
+
+            $smsID = SMS::insertGetId([
+                'type' => 2,
+                'text' => $text,
+                'phone' => $phone,
+                'status' => 100,
+                'leadID' => $leadID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+                    'query' => [
+                        'login' => env('SMS_CONSULT_LOGIN'),
+                        'password' => env('SMS_CONSULT_PASSWORD'),
+                        'id' => $smsID,
+                        'type' => 'message',
+                        'recipient' => $phone,
+                        'sender' => env('SMS_CONSULT_SENDER'),
+                        'text' => $text
+                    ],
+                ]);
+                $res = $response->getBody()->getContents();
+                if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
+                    $result['success'] = true;
+                }
+            } catch (BadResponseException $e) {
+                info($e);
+                if ($e->getCode() == 400) {
+
+                    info('Something went wrong. Bad request' . $phone);
+                } elseif ($e->getCode() == 401) {
+
+                    info('Something went wrong. Bad request' . $phone);
+                }
+
+            }
+        }while(false);
+        return response()->json($result);
 
     }
 }
