@@ -95,7 +95,7 @@ class SMSController extends Controller
             }
 
             $text = 'Vam ODOBRENO '.$amount.' tg. Dlya polucheniya pereydite '.$url;
-
+            DB::beginTransaction();
             $smsID = SMS::insertGetId([
                 'type' => 2,
                 'text' => $text,
@@ -106,38 +106,20 @@ class SMSController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
-            $http = new Client(['verify' => false]);
-            try {
-                $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
-                    'query' => [
-                        'login' => env('SMS_CONSULT_LOGIN'),
-                        'password' => env('SMS_CONSULT_PASSWORD'),
-                        'id' => $smsID,
-                        'type' => 'message',
-                        'recipient' => $phone,
-                        'sender' => env('SMS_CONSULT_SENDER'),
-                        'text' => $text
-                    ],
-                ]);
-                var_dump(env('SMS_CONSULT_LOGIN'));
-                $res = $response->getBody()->getContents();
-                print_r($res);
-                if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
-                    $result['success'] = true;
-                }
-            } catch (BadResponseException $e) {
-                info($e);
-                if ($e->getCode() == 400) {
-
-                    info('Something went wrong. Bad request' . $phone);
-                } elseif ($e->getCode() == 401) {
-
-                    info('Something went wrong. Bad request' . $phone);
-                }
-
+            if (!$smsID){
+                DB::rollBack();
+                $result['message'] = 'Something went wrong!';
+                break;
             }
+            $send = $this->sendSMS($smsID,$phone,$text);
+            if ($send == false){
+                break;
+            }
+            $result['success'] = true;
+
+            DB::commit();
         }while(false);
-        //return response()->json($result);
+        return response()->json($result);
 
     }
 
