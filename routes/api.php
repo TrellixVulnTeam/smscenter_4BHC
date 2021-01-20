@@ -21,3 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/typeOne',[SMSController::class,'typeOne']);
 Route::get('/typeTwo',[SMSController::class,'typeTwo']);
 Route::get('/gracePeriod',[SMSController::class,'gracePeriod']);
+Route::get('/standardPeriod',[SMSController::class,'standardPeriod']);
+Route::get('/softPeriod',[SMSController::class,'softPeriod']);
+Route::get('/hardPeriod',[SMSController::class,'hardPeriod']);

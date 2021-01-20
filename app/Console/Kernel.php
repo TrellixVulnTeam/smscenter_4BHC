@@ -31,9 +31,9 @@ class Kernel extends ConsoleKernel
     {
     //     $schedule->command('statusSMS')->hourly();
             $schedule->call(function (){
-               $sql = SMS::where('type',1)->get();
+               $sql = SMS::where('type','!=',1)->get();
                foreach ($sql as $s){
-                   $http = new Client();
+                   /*$http = new Client();
                    try{
                        $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                            'query' => [
@@ -55,9 +55,24 @@ class Kernel extends ConsoleKernel
                        }
                    }catch (BadResponseException $e){
                        info($e);
+                   }*/
+                   $sms = SMS::where('id',$s->id)->update(['status' => 102]);
+                   $http = new Client(['verify' =>false]);
+                   try{
+                       $response = $http->get('http://185.125.46.8/api/webhock/responseDeal.php', [
+                           'query' => [
+                               'dealID' => $s->dealID,
+                               'status' => 102,
+                           ],
+                       ]);
+
+                   }catch (BadResponseException $e){
+                       info($e);
                    }
+
                }
-            })->everyMinute();
+
+            })->everyFiveMinutes();
     }
 
     /**
