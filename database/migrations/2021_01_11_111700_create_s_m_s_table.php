@@ -20,6 +20,7 @@ class CreateSMSTable extends Migration
             $table->string('phone');
             $table->string('text');
             $table->string('leadID')->nullable();
+            $table->string('dealID')->nullable();
             $table->timestamps();
         });
     }
