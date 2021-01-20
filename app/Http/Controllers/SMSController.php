@@ -84,7 +84,7 @@ class SMSController extends Controller
 
     }
 
-
+    // для подписа договора
     public function typeTwo(Request $request){
         $phone = $request->input('phone');
         $amount = $request->input('amount');
@@ -158,5 +158,50 @@ class SMSController extends Controller
         }while(false);
         //return response()->json($result);
 
+    }
+
+    public function gracePeriod(Request $request){
+        $dealID = $request->input('dealID');
+        $type = $request->input('type');
+        $phone = $request->input('phone');
+        $amount = $request->input('amount');
+        $result['success'] = false;
+
+        do{
+            if (!$dealID){
+                $result['message'] = 'Не передан ID сделки';
+                break;
+            }
+            if (!$type){
+                $result['message'] = 'Не передан тип льготного периода';
+                break;
+            }
+            if (!$phone){
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+            if (!$amount){
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+
+            if ($type == 5){
+                $text = 'Zavtra Posledniy den LGOTNOGO perioda Oplatite do zavtra'. $amount .'tg po 0% www.i-credit.kz I mojete snova Vzyat KREDIT no uzhe BOLSHE- vash i-Credit';
+            }else if ($type == 6){
+                $text = 'Segodnya Posledniy den LGOTNOGO perioda Oplatite do zavtra'. $amount .'tg po 0% www.i-credit.kz I mojete snova Vzyat KREDIT no uzhe BOLSHE- vash i-Credit';
+            }
+            $sms = SMS::insertGetId([
+                'type' => $type,
+                'status' => 100,
+                'phone' => $phone,
+                'text' => $text,
+                'dealID' => $dealID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+        }while(false);
+
+        return response()->json($result);
     }
 }
