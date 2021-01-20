@@ -195,7 +195,7 @@ class SMSController extends Controller
     }
 
     public function sendSMS($smsID,$phone,$text){
-        $login = getenv('SMS_CONSULT_LOGIN');
+        $login = env('SMS_CONSULT_LOGIN');
         $password = env('SMS_CONSULT_PASSWORD');
         $sender = env('SMS_CONSULT_SENDER');
         $http = new Client(['verify' => false]);
