@@ -34,10 +34,6 @@ class SMSController extends Controller
             }
 
             DB::beginTransaction();
-            $s = getenv('REDIS_HOST');
-            $login = getenv('SMS_CONSULT_LOGIN');
-            $password = env('SMS_CONSULT_PASSWORD');
-            $sender = env('SMS_CONSULT_SENDER');
             $text = "Код для подтверждения на сайте $source $code";
 
             $smsID = SMS::insertGetId([
@@ -49,38 +45,23 @@ class SMSController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
-            $http = new Client(['verify' => false]);
-            try {
-                $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
-                    'query' => [
-                        'login' => $login,
-                        'password' => $password,
-                        'id' => $smsID,
-                        'type' => 'message',
-                        'recipient' => $phone,
-                        'sender' => $sender,
-                        'text' => $text
-                    ],
-                ]);
-                $res = $response->getBody()->getContents();
-                if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
-                    $result['success'] = true;
-                }
-            } catch (BadResponseException $e) {
-                info($e);
-                if ($e->getCode() == 400) {
+            if (!$smsID){
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
 
-                    info('Something went wrong. Bad request' . $phone);
-                } elseif ($e->getCode() == 401) {
-
-                    info('Something went wrong. Bad request' . $phone);
-                }
-
+            $send = $this->sendSMS($smsID,$phone,$text);
+            print_r($send);
+            if ($send==true){
+                $result['success'] = true;
+            }else{
+                break;
             }
             DB::commit();
 
         }while(false);
-        return response()->json($result);
+    //    return response()->json($result);
 
     }
 
@@ -211,5 +192,38 @@ class SMSController extends Controller
         }while(false);
 
         return response()->json($result);
+    }
+
+    public function sendSMS($smsID,$phone,$text){
+        $login = getenv('SMS_CONSULT_LOGIN');
+        $password = env('SMS_CONSULT_PASSWORD');
+        $sender = env('SMS_CONSULT_SENDER');
+        $http = new Client(['verify' => false]);
+        try {
+            $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+                'query' => [
+                    'login' => $login,
+                    'password' => $password,
+                    'id' => $smsID,
+                    'type' => 'message',
+                    'recipient' => $phone,
+                    'sender' => $sender,
+                    'text' => $text
+                ],
+            ]);
+            $res = $response->getBody()->getContents();
+            if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102'){
+               return true;
+            }
+        } catch (BadResponseException $e) {
+            info($e);
+            if ($e->getCode() == 400) {
+                info('Something went wrong. Bad request' . $phone);
+            } elseif ($e->getCode() == 401) {
+
+                info('Something went wrong. Bad request' . $phone);
+            }
+
+        }
     }
 }
