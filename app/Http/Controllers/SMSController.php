@@ -52,7 +52,7 @@ class SMSController extends Controller
             }
 
             $send = $this->sendSMS($smsID,$phone,$text);
-            print_r($send);
+            echo 'send '.($send);
             if ($send==true){
                 $result['success'] = true;
             }else{
@@ -61,7 +61,7 @@ class SMSController extends Controller
             DB::commit();
 
         }while(false);
-    //    return response()->json($result);
+        return response()->json($result);
 
     }
 
