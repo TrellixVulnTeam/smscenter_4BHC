@@ -190,6 +190,8 @@ class SMSController extends Controller
             }else if ($type == 6){
                 $text = 'Segodnya Posledniy den LGOTNOGO perioda Oplatite do zavtra'. $amount .'tg po 0% www.i-credit.kz I mojete snova Vzyat KREDIT no uzhe BOLSHE- vash i-Credit';
             }
+            DB::beginTransaction();
+
             $sms = SMS::insertGetId([
                 'type' => $type,
                 'status' => 100,
@@ -199,7 +201,13 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-
+            if (!$sms){
+                DB::rollBack();
+                $result['message'] = 'Something wrong';
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
         }while(false);
 
         return response()->json($result);
