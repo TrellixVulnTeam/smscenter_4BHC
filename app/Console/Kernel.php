@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     {
     //     $schedule->command('statusSMS')->hourly();
             $schedule->call(function (){
-               $sql = SMS::where('type','!=',1)->get();
+               $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
                foreach ($sql as $s){
                    $http = new Client();
                    try{
