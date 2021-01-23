@@ -174,7 +174,9 @@ class SMSController extends Controller
                 break;
             }
             $send = $this->sendSMS($sms, $phone, $text);
+
             if (!$send) {
+                $result['message'] = 'Отправка смс';
                 break;
             }
             $result['success'] = true;

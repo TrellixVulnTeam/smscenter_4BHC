@@ -46,16 +46,16 @@ class Kernel extends ConsoleKernel
                        $result = $response->getBody()->getContents();
                        if ($result == 'status=100'){
                            $update = SMS::where('id',$s->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->id&status=100";
+                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=100";
                            file_get_contents($url);
                        }
                        if ($result == 'status=101'){
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->id&status=101";
+                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=101";
                            file_get_contents($url);
                            $update = SMS::where('id',$s->id)->update(['status'=>101,'updated_at'=>Carbon::now()]);
                        }
                        if ($result == 'status=102'){
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->id&status=102";
+                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=102";
                            file_get_contents($url);
                            $update = SMS::where('id',$s->id)->update(['status'=>102,'updated_at'=>Carbon::now()]);
                        }
