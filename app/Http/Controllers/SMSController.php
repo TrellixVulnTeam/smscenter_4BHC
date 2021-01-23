@@ -173,10 +173,10 @@ class SMSController extends Controller
                 $result['message'] = 'Something wrong';
                 break;
             }
-           /* $send = $this->sendSMS($sms, $phone, $text);
+            $send = $this->sendSMS($sms, $phone, $text);
             if (!$send) {
                 break;
-            }*/
+            }
             $result['success'] = true;
             DB::commit();
         } while (false);
@@ -237,6 +237,10 @@ class SMSController extends Controller
             if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($sms, $phone, $text);
+            if (!$send) {
                 break;
             }
             $result['success'] = true;
@@ -307,6 +311,10 @@ class SMSController extends Controller
                 $result['message'] = 'Something went wrong';
                 break;
             }
+            $send = $this->sendSMS($sms, $phone, $text);
+            if (!$send) {
+                break;
+            }
             $result['success'] = true;
             DB::commit();
 
@@ -347,7 +355,7 @@ class SMSController extends Controller
                 break;
             }
             if ($type == 18){
-                $text = 'Vash Dolg Uvelichilsa Vas Peredali KOLLEKTORAM i Nachisslili vse Peni mojete Oplatit v Qiwi,kassa24 iLi na Site www.';
+                $text = 'Vash Dolg Uvelichilsa Vas Peredali KOLLEKTORAM i Nachisslili vse Peni mojete prolongirovat za'.$prolongation.'tg ili zakrit zaym za '.$amount.'tg vy mozhete Oplatit v Qiwi,kassa24 iLi na Site www.';
             }
 
             DB::beginTransaction();
@@ -365,6 +373,10 @@ class SMSController extends Controller
             if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($sms, $phone, $text);
+            if (!$send) {
                 break;
             }
             $result['success'] = true;
@@ -425,6 +437,10 @@ class SMSController extends Controller
             if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($sms, $phone, $text);
+            if (!$send) {
                 break;
             }
             $result['success'] = true;
