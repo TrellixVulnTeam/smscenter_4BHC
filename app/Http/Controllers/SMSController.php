@@ -241,7 +241,7 @@ class SMSController extends Controller
                 $result['message'] = 'Something went wrong';
                 break;
             }
-            $send = $this->sendSMS($sms, $phone, $text);
+            $send = $this->sendSMS($smsID, $phone, $text);
             if (!$send) {
                 break;
             }
