@@ -246,7 +246,7 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-
+    // просрочка софт
     public function softPeriod(Request $request)
     {
         $amount = $request->input('amount');
@@ -315,6 +315,7 @@ class SMSController extends Controller
 
     }
 
+    // просрочка хард
     public function hardPeriod(Request $request){
         $amount = $request->input('amount');
         $prolongation = $request->input('prolongation');
@@ -373,6 +374,68 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
+    // пролонгация
+    public function prolongationPeriod(Request $request){
+        $type = $request->input('type');
+        $amount = $request->input('amount');
+        $phone = $request->input('phone');
+        $prolongation = $request->input('prolongation');
+        $dealID = $request->input('dealID');
+
+        $result['message'] = false;
+
+        do {
+            if (!$amount) {
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+            if (!$prolongation) {
+                $result['message'] = 'Не передан сумма пролонгации';
+                break;
+            }
+            if (!$phone) {
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+            if (!$dealID) {
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$type) {
+                $result['message'] = 'Не передан тип сообщение';
+                break;
+            }
+            if ($type == 24){
+                $text = 'ZAVTRA Srok Pogasheniya Kredita Vi moJete prolongirovat Kredit oplativ' . $prolongation . 'tg iLi zakrit ego Polnostu ' . $amount . 'tg';
+            } else if ($type == 25) {
+                $text = 'SEGODYA Srok Pogasheniya Kredita Vi moJete prolongirovat Kredit oplativ' . $prolongation . 'tg iLi zakrit ego Polnostu' . $amount . 'tg';
+            }
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'status' => 100,
+                'type' => $type,
+                'text' => $text,
+                'dealID' => $dealID,
+                'phone' => $phone,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+
+
+        }while(false);
+        return response()->json($result);
+    }
+
+    // метод отправление смс
     public function sendSMS($smsID, $phone, $text)
     {
         $login = env('SMS_CONSULT_LOGIN');
