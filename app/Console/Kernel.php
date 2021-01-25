@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\HttpClientKernel;
 
 class Kernel extends ConsoleKernel
@@ -44,20 +45,109 @@ class Kernel extends ConsoleKernel
                            ],
                        ]);
                        $result = $response->getBody()->getContents();
+                       $sms = SMS::find($s->id)->first();
                        if ($result == 'status=100'){
                            $update = SMS::where('id',$s->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=100";
-                           file_get_contents($url);
+                           if (isset($sms) && isset($sms->dealID)){
+                               $status = DB::table('status')->where('dealID',$s->dealID)
+                                   ->where('status',100)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 100,
+                                       'dealID' => $s->dealID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=100";
+                               }
+                           }else if (isset($sms) && isset($sms->leadID)){
+                               $status = DB::table('status')->where('leadID',$s->leadID)
+                                   ->where('status',100)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 100,
+                                       'dealID' => $s->leadID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=100";
+                               }
+                           }
+                           if (isset($url)){
+                               file_get_contents($url);
+                           }
+
                        }
+
                        if ($result == 'status=101'){
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=101";
-                           file_get_contents($url);
                            $update = SMS::where('id',$s->id)->update(['status'=>101,'updated_at'=>Carbon::now()]);
+
+                           if (isset($sms) && isset($sms->dealID)){
+                               $status = DB::table('status')->where('dealID',$s->dealID)
+                                   ->where('status',101)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 101,
+                                       'dealID' => $s->dealID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=101";
+                               }
+                           }else if (isset($sms) && isset($sms->leadID)){
+                               $status = DB::table('status')->where('leadID',$s->leadID)
+                                   ->where('status',101)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 101,
+                                       'dealID' => $s->leadID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=101";
+                               }
+                           }
+                           if (isset($url)){
+                               file_get_contents($url);
+                           }
                        }
+
                        if ($result == 'status=102'){
-                           $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=102";
-                           file_get_contents($url);
                            $update = SMS::where('id',$s->id)->update(['status'=>102,'updated_at'=>Carbon::now()]);
+                           if (isset($sms) && isset($sms->dealID)){
+                               $status = DB::table('status')->where('dealID',$s->dealID)
+                                   ->where('status',102)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 102,
+                                       'dealID' => $s->dealID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=102";
+                               }
+                           }else if (isset($sms) && isset($sms->leadID)){
+                               $status = DB::table('status')->where('leadID',$s->leadID)
+                                   ->where('status',102)
+                                   ->where('sms_id',$s->id)
+                                   ->first();
+                               if (!isset($status)){
+                                   $statusInsert = DB::table('status')->insertGetId([
+                                       'status' => 102,
+                                       'dealID' => $s->leadID,
+                                       'sms_id' => $s->id,
+                                   ]);
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=102";
+                               }
+                           }
+                           if (isset($url)){
+                               file_get_contents($url);
+                           }
                        }
                    }catch (BadResponseException $e){
                        info($e);
@@ -68,6 +158,25 @@ class Kernel extends ConsoleKernel
                }
 
             })->everyFiveMinutes();
+    }
+
+    public function writeToBase($status,$leadID,$dealID,$smsID){
+        if (is_null($dealID)){
+            $stat = DB::table('status')->insert([
+                'status' => $status,
+                'leadID' => $leadID,
+                'sms_id' => $smsID
+            ]);
+        }
+        if (is_null($leadID)){
+            $stat = DB::table('status')->insert([
+                'status' => $status,
+                'dealID' => $dealID,
+                'sms_id' => $smsID
+            ]);
+        }
+        return true;
+
     }
 
     /**
