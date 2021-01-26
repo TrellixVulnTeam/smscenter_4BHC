@@ -559,8 +559,9 @@ class SMSController extends Controller
                     ],
                 ]);
                 $result = $response->getBody()->getContents();
-                echo $s->id;
+                echo $s->id." ".$s->leadID." ".$s->dealID;
                 print_r($result);
+
                 echo "<br>";
 
                 /* $sms = SMS::find($s->id)->first();
