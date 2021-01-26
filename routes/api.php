@@ -25,3 +25,4 @@ Route::get('/standardPeriod',[SMSController::class,'standardPeriod']);
 Route::get('/softPeriod',[SMSController::class,'softPeriod']);
 Route::get('/hardPeriod',[SMSController::class,'hardPeriod']);
 Route::get('/prolongationPeriod',[SMSController::class,'prolongationPeriod']);
+Route::get('/failureClient',[SMSController::class,'failureClient']);

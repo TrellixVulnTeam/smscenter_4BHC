@@ -125,6 +125,54 @@ class SMSController extends Controller
 
     }
 
+
+    // отказ клиенту
+    public function failureClient(Request $request)
+    {
+        $phone = $request->input('phone');
+        $leadID = $request->input('leadID');
+        $text = 'К сожалению вам отказано';
+        $type = 3;
+        $result['success'] = false;
+
+        do {
+            if (!$phone){
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+
+            if (!$leadID){
+                $result['message'] = 'Не передан лид ';
+            }
+
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'type' => 3,
+                'text' => $text,
+                'phone' => $phone,
+                'status' => 100,
+                'leadID' => $leadID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong!';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if ($send == false) {
+                break;
+            }
+            $result['success'] = true;
+
+            DB::commit();
+        } while (false);
+        return response()->json($result);
+    }
+
     // льготный период
     public function gracePeriod(Request $request)
     {
@@ -293,7 +341,7 @@ class SMSController extends Controller
             } else if ($type == 16) {
                 $text = 'ZAVTRA mi Peredadim Vas v HARD KOLEKSHEN za ' . $prolongation . 'tg Prodlite Srok Kredita BEZ Shtrafov I Peni oplatite v Qiwi,kassa24 iLi na Site';
             } else if ($type == 17) {
-                $text = 'Segodnya mi Peredadim Vas v HARD KOLEKSHEN za '.$prolongation.' Prodlite Srok Kredita BEZ Shtrafov I Peni oplatite v Qiwi,kassa24 iLi na Site';
+                $text = 'Segodnya mi Peredadim Vas v HARD KOLEKSHEN za ' . $prolongation . ' Prodlite Srok Kredita BEZ Shtrafov I Peni oplatite v Qiwi,kassa24 iLi na Site';
             }
 
             DB::beginTransaction();
@@ -326,7 +374,8 @@ class SMSController extends Controller
     }
 
     // просрочка хард
-    public function hardPeriod(Request $request){
+    public function hardPeriod(Request $request)
+    {
         $amount = $request->input('amount');
         $prolongation = $request->input('prolongation');
         $dealID = $request->input('dealID');
@@ -356,8 +405,8 @@ class SMSController extends Controller
                 $result['message'] = 'Не передан тип сообщение';
                 break;
             }
-            if ($type == 18){
-                $text = 'Vash Dolg Uvelichilsa Vas Peredali KOLLEKTORAM i Nachisslili vse Peni mojete prolongirovat za'.$prolongation.'tg ili zakrit zaym za '.$amount.'tg vy mozhete Oplatit v Qiwi,kassa24 iLi na Site www.';
+            if ($type == 18) {
+                $text = 'Vash Dolg Uvelichilsa Vas Peredali KOLLEKTORAM i Nachisslili vse Peni mojete prolongirovat za' . $prolongation . 'tg ili zakrit zaym za ' . $amount . 'tg vy mozhete Oplatit v Qiwi,kassa24 iLi na Site www.';
             }
 
             DB::beginTransaction();
@@ -390,7 +439,8 @@ class SMSController extends Controller
     }
 
     // пролонгация
-    public function prolongationPeriod(Request $request){
+    public function prolongationPeriod(Request $request)
+    {
         $type = $request->input('type');
         $amount = $request->input('amount');
         $phone = $request->input('phone');
@@ -420,7 +470,7 @@ class SMSController extends Controller
                 $result['message'] = 'Не передан тип сообщение';
                 break;
             }
-            if ($type == 24){
+            if ($type == 24) {
                 $text = 'ZAVTRA Srok Pogasheniya Kredita Vi moJete prolongirovat Kredit oplativ ' . $prolongation . 'tg iLi zakrit ego Polnostu ' . $amount . 'tg';
             } else if ($type == 25) {
                 $text = 'SEGODYA Srok Pogasheniya Kredita Vi moJete prolongirovat Kredit oplativ ' . $prolongation . 'tg iLi zakrit ego Polnostu' . $amount . 'tg';
@@ -450,7 +500,7 @@ class SMSController extends Controller
             DB::commit();
 
 
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 
