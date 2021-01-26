@@ -559,8 +559,10 @@ class SMSController extends Controller
                     ],
                 ]);
                 $result = $response->getBody()->getContents();
-                var_dump($result);
-                die();
+                echo $s->id;
+                print_r($response);
+                echo "<br>";
+
                 $sms = SMS::find($s->id)->first();
                 if ($result == 'status=100'){
                     $update = SMS::where('id',$sms->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
