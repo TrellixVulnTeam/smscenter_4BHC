@@ -148,7 +148,7 @@ class SMSController extends Controller
             DB::beginTransaction();
 
             $smsID = SMS::insertGetId([
-                'type' => 3,
+                'type' => $type,
                 'text' => $text,
                 'phone' => $phone,
                 'status' => 100,
@@ -156,6 +156,7 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+
 
             if (!$smsID) {
                 DB::rollBack();
