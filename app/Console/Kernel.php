@@ -58,6 +58,8 @@ class Kernel extends ConsoleKernel
                                        'status' => 100,
                                        'dealID' => $s->dealID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
                                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=100";
                                }
@@ -69,10 +71,12 @@ class Kernel extends ConsoleKernel
                                if (!isset($status)){
                                    $statusInsert = DB::table('status')->insertGetId([
                                        'status' => 100,
-                                       'dealID' => $s->leadID,
+                                       'leadID' => $s->leadID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
-                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=100";
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status=100";
                                }
                            }
                            if (isset($url)){
@@ -94,6 +98,8 @@ class Kernel extends ConsoleKernel
                                        'status' => 101,
                                        'dealID' => $s->dealID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
                                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=101";
                                }
@@ -105,10 +111,12 @@ class Kernel extends ConsoleKernel
                                if (!isset($status)){
                                    $statusInsert = DB::table('status')->insertGetId([
                                        'status' => 101,
-                                       'dealID' => $s->leadID,
+                                       'leadID' => $s->leadID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
-                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=101";
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status=101";
                                }
                            }
                            if (isset($url)){
@@ -128,6 +136,8 @@ class Kernel extends ConsoleKernel
                                        'status' => 102,
                                        'dealID' => $s->dealID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
                                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=102";
                                }
@@ -139,10 +149,12 @@ class Kernel extends ConsoleKernel
                                if (!isset($status)){
                                    $statusInsert = DB::table('status')->insertGetId([
                                        'status' => 102,
-                                       'dealID' => $s->leadID,
+                                       'leadID' => $s->leadID,
                                        'sms_id' => $s->id,
+                                       'created_at' => Carbon::now(),
+                                       'updated_at' => Carbon::now(),
                                    ]);
-                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?dealID=$s->leadID&status=102";
+                                   $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status=102";
                                }
                            }
                            if (isset($url)){
