@@ -594,6 +594,7 @@ class SMSController extends Controller
                         }
                     }
                     if (isset($url)){
+                        info('100 '. $url);
                         file_get_contents($url);
                     }
 
@@ -633,6 +634,7 @@ class SMSController extends Controller
                             $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$sms->leadID&status=101";
                         }
                     }
+                    info('101 '. $url);
                     if (isset($url)){
                         file_get_contents($url);
                     }
@@ -671,6 +673,7 @@ class SMSController extends Controller
                             $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$sms->leadID&status=102";
                         }
                     }
+                    info('102 '. $url);
                     if (isset($url)){
                         file_get_contents($url);
                     }
