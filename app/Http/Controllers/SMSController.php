@@ -546,8 +546,8 @@ class SMSController extends Controller
     }
 
     public function checkCron(){
-        $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
-        foreach ($sql as $s){
+/*        $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
+        foreach ($sql as $s){*/
             $http = new Client();
             try{
                 $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
@@ -563,7 +563,7 @@ class SMSController extends Controller
                 print_r($response);
                 echo "<br>";
 
-                $sms = SMS::find($s->id)->first();
+               /* $sms = SMS::find($s->id)->first();
                 if ($result == 'status=100'){
                     $update = SMS::where('id',$sms->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
                     if (isset($sms) && isset($sms->dealID)){
@@ -681,10 +681,10 @@ class SMSController extends Controller
                     if (isset($url)){
                         file_get_contents($url);
                     }
-                }
+                }*/
             }catch (BadResponseException $e){
                 info($e);
             }
-        }
+
     }
 }
