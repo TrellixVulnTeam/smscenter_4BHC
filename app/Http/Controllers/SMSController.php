@@ -602,7 +602,7 @@ class SMSController extends Controller
 
                 if ($result == 'status=101'){
                     $update = SMS::where('id',$sms->id)->update(['status'=>101,'updated_at'=>Carbon::now()]);
-
+                    $url = '';
                     if (isset($sms) && isset($sms->dealID)){
                         $status = DB::table('status')->where('dealID',$sms->dealID)
                             ->where('status',101)
