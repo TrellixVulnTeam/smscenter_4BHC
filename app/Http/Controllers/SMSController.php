@@ -145,6 +145,11 @@ class SMSController extends Controller
                 $result['message'] = 'Не передан лид ';
             }
 
+            $check = SMS::where('leadID',$leadID)->where('phone',$phone)->first();
+            if (isset($check)){
+                break;
+            }
+
             DB::beginTransaction();
 
             $smsID = SMS::insertGetId([
