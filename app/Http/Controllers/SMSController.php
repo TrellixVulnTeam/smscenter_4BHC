@@ -131,7 +131,7 @@ class SMSController extends Controller
     {
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'К сожалению вам отказано';
+        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram , oni podberut dlja vas zajmy s vysokim odobreniem https://kaz-zaem.online/';
         $type = 3;
         $result['success'] = false;
 
