@@ -53,7 +53,6 @@ class SMSController extends Controller
             }
 
             $send = $this->sendSMS($smsID, $phone, $text);
-            echo 'send ' . ($send);
             if ($send == true) {
                 $result['success'] = true;
             } else {
@@ -683,5 +682,53 @@ class SMSController extends Controller
                 info($e);
             }
         }
+    }
+
+    public function repayment(Request $request){
+        $phone = $request->input('phone');
+        $dealID = $request->input('dealID');
+        $smsType = $request->input('smsType');
+        $text = 'Ваш кредит полностью ПОГАШЕН- Спасибо что выбрали НАС';
+        $result['success'] = false;
+
+        do {
+            if (!$phone){
+                $result['message'] = 'Не передан номер телефона';
+                break;
+            }
+            if (!$dealID){
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$smsType){
+                $result['message'] = 'Не передан тип сообщение';
+                break;
+            }
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'type' => $smsType,
+                'text' => $text,
+                'phone' => $phone,
+                'status' => 100,
+                'dealID' => $dealID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong!';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if ($send == false) {
+                break;
+            }
+            $result['success'] = true;
+
+            DB::commit();
+        }while(false);
+        return response()->json($result);
     }
 }
