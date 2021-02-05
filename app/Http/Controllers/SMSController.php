@@ -758,7 +758,7 @@ class SMSController extends Controller
                 $result['message'] = 'Не передан сумма';
                 break;
             }
-
+            $text = "ВАМ Одобрен Кредит под 0% с УВЕЛИЧЕННОЙ суммой $amount Ваш I-Credit";
             DB::beginTransaction();
 
             $smsID = SMS::insertGetId([
