@@ -28,3 +28,4 @@ Route::get('/prolongationPeriod',[SMSController::class,'prolongationPeriod']);
 Route::get('/failureClient',[SMSController::class,'failureClient']);
 Route::get('/checkCron',[SMSController::class,'checkCron']);
 Route::get('/repayment',[SMSController::class,'repayment']);
+Route::get('/advertisement', [SMSController::class,'advertisement']);

@@ -684,6 +684,7 @@ class SMSController extends Controller
         }
     }
 
+    //Ваш займ погашен
     public function repayment(Request $request){
         $phone = $request->input('phone');
         $dealID = $request->input('dealID');
@@ -727,6 +728,59 @@ class SMSController extends Controller
             }
             $result['success'] = true;
 
+            DB::commit();
+        }while(false);
+        return response()->json($result);
+    }
+
+    //Рекламный
+    public function advertisement(Request $request){
+        $dealID = $request->input('dealID');
+        $phone  = $request->input('phone');
+        $type = $request->input('type');
+        $amount = $request->input('amount');
+        $result['success'] = false;
+        do{
+            if (!$dealID){
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$phone){
+                $result['message'] = 'Не передан номер телефона';
+                break;
+            }
+            if (!$type){
+                $result['message'] = 'Не передан тип сообщение';
+                break;
+            }
+
+            if (!$amount){
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'status' => 100,
+                'type' => $type,
+                'text' => $text,
+                'dealID' => $dealID,
+                'phone' => $phone,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if (!$send) {
+                break;
+            }
+            $result['success'] = true;
             DB::commit();
         }while(false);
         return response()->json($result);
