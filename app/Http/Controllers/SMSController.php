@@ -911,7 +911,8 @@ class SMSController extends Controller
         $sms = DB::table('sms')
             ->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
             ->join('sms_types', 'sms.type', '=', 'sms_types.id')
-            ->select('sms.text', 'sms_types.name as type', 'sms.phone', 'sms_statuses.name as status', 'sms.status as status_id', 'sms.created_at')->orderBy('created_at', 'desc');
+            ->select('sms.text', 'sms_types.name as type', 'sms.phone', 'sms_statuses.name as status', 'sms.status as status_id', 'sms.created_at')
+            ->orderBy('created_at', 'desc');
 
         if($phone && $token && $user) {
             if(!$date_from) {
@@ -949,7 +950,7 @@ class SMSController extends Controller
             }
             $start = date($date_from);
             $end = date($date_to);
-            $sms = $sms->whereBetween('created_at', [$start, $end])->where('phone', $phone)->paginate(15);
+            $sms = $sms->whereBetween('sms.created_at', [$start, $end])->where('sms.phone', $phone)->paginate(15);
 
             return response()->json($sms);
         }
@@ -960,7 +961,7 @@ class SMSController extends Controller
             }
             $start = date($date_from);
             $end = date($date_to);
-            $sms = $sms->whereBetween('created_at', [$start, $end])->where('phone', $phone)->paginate(15);
+            $sms = $sms->whereBetween('sms.created_at', [$start, $end])->where('sms.phone', $phone)->paginate(15);
             return response()->json($sms);
         }
         $result['success'] = false;
