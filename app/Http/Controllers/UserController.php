@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -124,7 +120,8 @@ class UserController extends Controller
             }
             $token = Str::random(60);
             $token = sha1($token);
-            $rememberToken = User::where('email',$email)->update(['remember_token'=>$token]);
+            $user->remember_token = $token;
+            $user->save();
             $result['success'] = true;
             $result['name'] = $user->name;
             $result['email'] = $user->email;
