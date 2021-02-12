@@ -124,8 +124,7 @@ class UserController extends Controller
             }
             $token = Str::random(60);
             $token = sha1($token);
-            $user->remember_token = $token;
-            $user->save();
+            $rememberToken = User::where('email',$email)->update(['remember_token'=>$token]);
             $result['success'] = true;
             $result['name'] = $user->name;
             $result['email'] = $user->email;
