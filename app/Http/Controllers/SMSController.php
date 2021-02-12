@@ -916,7 +916,7 @@ class SMSController extends Controller
 
         if($phone && $token && $user) {
             if(!$date_from) {
-                $sms = $sms->where('phone', $phone)->paginate(15);
+                $sms = $sms->where('sms.phone', $phone)->paginate(15);
 
                 return response()->json($sms);
             }
@@ -929,7 +929,7 @@ class SMSController extends Controller
                 }
                 $start = date($date_from);
                 $end = date($date_to);
-                $sms = $sms->whereBetween('created_at', [$start, $end])->paginate(15);
+                $sms = $sms->whereBetween('sms.created_at', [$start, $end])->paginate(15);
                 return response()->json($sms);
             }
         }
@@ -941,7 +941,7 @@ class SMSController extends Controller
                 }
                 $start = date($date_from);
                 $end = date($date_to);
-                $sms = $sms->whereBetween('created_at', [$start, $end])->paginate(15);
+                $sms = $sms->whereBetween('sms.created_at', [$start, $end])->paginate(15);
             }
         }
         if($phone && $token && $user && $date_from) {
