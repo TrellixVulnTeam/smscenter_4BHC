@@ -921,7 +921,7 @@ class SMSController extends Controller
 
             $sms = $sms->paginate(15)->appends($request->all());
             foreach ($sms as $sm) {
-                $sms->status = $status[$sm->status];
+                $sms->status = $status[intval($sm->status)];
             }
 
             return response()->json($sms);
