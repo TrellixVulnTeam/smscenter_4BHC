@@ -919,7 +919,7 @@ class SMSController extends Controller
                 $sms = $sms->whereBetween('sms.created_at', [$date_from, $date_to]);
             }
             foreach ($sms as $sm) {
-                $sms['status'] = $status[$sm->status];
+                $sms->status = $status[$sm->status];
             }
 
             $sms = $sms->paginate(15)->appends($request->all());
