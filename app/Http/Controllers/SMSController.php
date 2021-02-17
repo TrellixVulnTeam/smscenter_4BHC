@@ -881,9 +881,16 @@ class SMSController extends Controller
         $date_from = $request->input('date_from');
         $date_to = $request->input('date_to');
         $sms_type=$request->input('sms_type');
+//->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
+        $status = [];
+
+        $statusTable = DB::table('sms_statuses')->select('id','name')->get();
+
+        foreach ($statusTable as $s){
+            $status[$s->id] = $s->name;
+        }
 
         $sms = DB::table('sms')
-            ->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
             ->join('sms_types', 'sms.type', '=', 'sms_types.id')
             ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms_statuses.name as status', 'sms.status as status_id', 'sms.created_at')->orderBy('created_at', 'desc');
         if($token && $user) {
@@ -902,8 +909,12 @@ class SMSController extends Controller
             if($date_from != '' && $date_to != '') {
                 $sms = $sms->whereBetween('sms.created_at', [$date_from, $date_to]);
             }
+            foreach ($sms as $sm){
+                $sms['status'] = $status[$sm->status];
+            }
 
             $sms = $sms->paginate(15)->appends($request->all());
+
             return response()->json($sms);
         }
 
