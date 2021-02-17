@@ -169,7 +169,9 @@ class SMSController extends Controller
                 break;
             }
             $send = $this->sendSMS($smsID, $phone, $text);
+            var_dump($send);
             if ($send == false) {
+                $result['message'] = 'Send SMS';
                 break;
             }
             $result['success'] = true;
