@@ -136,17 +136,17 @@ class SMSController extends Controller
         $result['success'] = false;
 
         do {
-            if (!$phone){
+            if (!$phone) {
                 $result['message'] = 'Не передан телефон';
                 break;
             }
 
-            if (!$leadID){
+            if (!$leadID) {
                 $result['message'] = 'Не передан лид ';
             }
 
-            $check = SMS::where('leadID',$leadID)->where('phone',$phone)->first();
-            if (isset($check)){
+            $check = SMS::where('leadID', $leadID)->where('phone', $phone)->first();
+            if (isset($check)) {
                 break;
             }
 
@@ -545,8 +545,9 @@ class SMSController extends Controller
         }
     }
 
-    public function checkCron(){
-        $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
+    public function checkCron()
+    {
+        $sql = SMS::where('type', '!=', 1)->where('status', '!=', 102)->get();
         foreach ($sql as $s) {
             $http = new Client();
             try {
@@ -560,14 +561,14 @@ class SMSController extends Controller
                 ]);
                 $result = $response->getBody()->getContents();
 
-                if ($result == 'status=100'){
-                    $update = SMS::where('id',$s->id)->update(['status'=>100,'updated_at'=>Carbon::now()]);
-                    if (isset($s) && isset($s->dealID)){
-                        $status = DB::table('status')->where('dealID',$s->dealID)
-                            ->where('status',100)
-                            ->where('sms_id',$s->id)
+                if ($result == 'status=100') {
+                    $update = SMS::where('id', $s->id)->update(['status' => 100, 'updated_at' => Carbon::now()]);
+                    if (isset($s) && isset($s->dealID)) {
+                        $status = DB::table('status')->where('dealID', $s->dealID)
+                            ->where('status', 100)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 100,
                                 'dealID' => $s->dealID,
@@ -578,12 +579,12 @@ class SMSController extends Controller
                             $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=100";
                         }
 
-                    }else if (isset($s) && isset($s->leadID)){
-                        $status = DB::table('status')->where('leadID',$s->leadID)
-                            ->where('status',100)
-                            ->where('sms_id',$s->id)
+                    } else if (isset($s) && isset($s->leadID)) {
+                        $status = DB::table('status')->where('leadID', $s->leadID)
+                            ->where('status', 100)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 100,
                                 'leadID' => $s->leadID,
@@ -594,22 +595,22 @@ class SMSController extends Controller
                             $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status=100";
                         }
                     }
-                    if (isset($url)){
+                    if (isset($url)) {
 
                         file_get_contents($url);
                     }
 
                 }
 
-                if ($result == 'status=101'){
-                    $update = SMS::where('id',$s->id)->update(['status'=>101,'updated_at'=>Carbon::now()]);
+                if ($result == 'status=101') {
+                    $update = SMS::where('id', $s->id)->update(['status' => 101, 'updated_at' => Carbon::now()]);
 
-                    if (isset($s) && isset($s->dealID)){
-                        $status = DB::table('status')->where('dealID',$s->dealID)
-                            ->where('status',101)
-                            ->where('sms_id',$s->id)
+                    if (isset($s) && isset($s->dealID)) {
+                        $status = DB::table('status')->where('dealID', $s->dealID)
+                            ->where('status', 101)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 101,
                                 'dealID' => $s->dealID,
@@ -619,12 +620,12 @@ class SMSController extends Controller
                             ]);
                             $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=101";
                         }
-                    }else if (isset($s) && isset($s->leadID)){
-                        $status = DB::table('status')->where('leadID',$s->leadID)
-                            ->where('status',101)
-                            ->where('sms_id',$s->id)
+                    } else if (isset($s) && isset($s->leadID)) {
+                        $status = DB::table('status')->where('leadID', $s->leadID)
+                            ->where('status', 101)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 101,
                                 'leadID' => $s->leadID,
@@ -636,19 +637,19 @@ class SMSController extends Controller
                         }
                     }
 
-                    if (isset($url)){
+                    if (isset($url)) {
                         file_get_contents($url);
                     }
                 }
 
-                if ($result == 'status=102'){
-                    $update = SMS::where('id',$s->id)->update(['status'=>102,'updated_at'=>Carbon::now()]);
-                    if (isset($s) && isset($s->dealID)){
-                        $status = DB::table('status')->where('dealID',$s->dealID)
-                            ->where('status',102)
-                            ->where('sms_id',$s->id)
+                if ($result == 'status=102') {
+                    $update = SMS::where('id', $s->id)->update(['status' => 102, 'updated_at' => Carbon::now()]);
+                    if (isset($s) && isset($s->dealID)) {
+                        $status = DB::table('status')->where('dealID', $s->dealID)
+                            ->where('status', 102)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 102,
                                 'dealID' => $s->dealID,
@@ -658,12 +659,12 @@ class SMSController extends Controller
                             ]);
                             $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status=102";
                         }
-                    }else if (isset($s) && isset($s->leadID)){
-                        $status = DB::table('status')->where('leadID',$s->leadID)
-                            ->where('status',102)
-                            ->where('sms_id',$s->id)
+                    } else if (isset($s) && isset($s->leadID)) {
+                        $status = DB::table('status')->where('leadID', $s->leadID)
+                            ->where('status', 102)
+                            ->where('sms_id', $s->id)
                             ->first();
-                        if (!isset($status)){
+                        if (!isset($status)) {
                             $statusInsert = DB::table('status')->insertGetId([
                                 'status' => 102,
                                 'leadID' => $s->leadID,
@@ -675,7 +676,7 @@ class SMSController extends Controller
                         }
                     }
 
-                    if (isset($url)){
+                    if (isset($url)) {
                         file_get_contents($url);
                     }
                 }
@@ -686,7 +687,8 @@ class SMSController extends Controller
     }
 
     //Ваш займ погашен
-    public function repayment(Request $request){
+    public function repayment(Request $request)
+    {
         $phone = $request->input('phone');
         $dealID = $request->input('dealID');
         $smsType = $request->input('smsType');
@@ -694,15 +696,15 @@ class SMSController extends Controller
         $result['success'] = false;
 
         do {
-            if (!$phone){
+            if (!$phone) {
                 $result['message'] = 'Не передан номер телефона';
                 break;
             }
-            if (!$dealID){
+            if (!$dealID) {
                 $result['message'] = 'Не передан номер сделки';
                 break;
             }
-            if (!$smsType){
+            if (!$smsType) {
                 $result['message'] = 'Не передан тип сообщение';
                 break;
             }
@@ -730,32 +732,33 @@ class SMSController extends Controller
             $result['success'] = true;
 
             DB::commit();
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 
     //Рекламный
-    public function advertisement(Request $request){
+    public function advertisement(Request $request)
+    {
         $dealID = $request->input('dealID');
-        $phone  = $request->input('phone');
+        $phone = $request->input('phone');
         $type = $request->input('type');
         $amount = $request->input('amount');
         $result['success'] = false;
-        do{
-            if (!$dealID){
+        do {
+            if (!$dealID) {
                 $result['message'] = 'Не передан номер сделки';
                 break;
             }
-            if (!$phone){
+            if (!$phone) {
                 $result['message'] = 'Не передан номер телефона';
                 break;
             }
-            if (!$type){
+            if (!$type) {
                 $result['message'] = 'Не передан тип сообщение';
                 break;
             }
 
-            if (!$amount){
+            if (!$amount) {
                 $result['message'] = 'Не передан сумма';
                 break;
             }
@@ -783,11 +786,12 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $token = $request->input('token');
         $user = User::where('remember_token', $token)->first();
 
@@ -795,7 +799,7 @@ class SMSController extends Controller
             ->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
             ->join('sms_types', 'sms.type', '=', 'sms_types.id')
             ->select('sms.text', 'sms_types.name as type', 'sms.phone', 'sms_statuses.name as status', 'sms.status as status_id', 'sms.created_at')->orderBy('created_at', 'desc')->paginate(15);
-        if($token && $user) {
+        if ($token && $user) {
             return response()->json($sms);
         }
         $result['success'] = false;
@@ -803,17 +807,20 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-    public function getSmsTypes(Request $request) {
+    public function getSmsTypes(Request $request)
+    {
         $sms_types = DB::table('sms_types')->get();
         return response()->json($sms_types);
     }
 
-    public function getSmsStatuses(Request $request) {
+    public function getSmsStatuses(Request $request)
+    {
         $sms_types = DB::table('sms_statuses')->get();
         return response()->json($sms_types);
     }
 
-    public function indexFile(Request $request){
+    public function indexFile(Request $request)
+    {
         $token = $request->input('token');
         $user = User::where('remember_token', $token)->first();
         $phone = $request->input('phone');
@@ -823,19 +830,19 @@ class SMSController extends Controller
 
 
         $sms = DB::table('sms')->orderBy('updated_at', 'desc');
-        if($phone != '') {
+        if ($phone != '') {
             $sms = $sms->where('phone', $phone);
         }
-        if($sms_type != '')  {
+        if ($sms_type != '') {
             $sms = $sms->where('type', $sms_type);
         }
-        if($date_from != '' && $date_to == '') {
-            $sms= $sms->whereBetween('created_at', [$date_from, Carbon::now()]);
+        if ($date_from != '' && $date_to == '') {
+            $sms = $sms->whereBetween('created_at', [$date_from, Carbon::now()]);
         }
-        if($date_from == '' && $date_to != '') {
-            $sms= $sms->whereBetween('created_at', [$date_from === '2000-01-01', $date_to]);
+        if ($date_from == '' && $date_to != '') {
+            $sms = $sms->whereBetween('created_at', [$date_from === '2000-01-01', $date_to]);
         }
-        if($date_from != '' && $date_to != '') {
+        if ($date_from != '' && $date_to != '') {
             $sms = $sms->whereBetween('created_at', [$date_from, $date_to]);
         }
         $sms = $sms->get();
@@ -843,16 +850,16 @@ class SMSController extends Controller
         $types = DB::table('sms_types')->get();
         $statuses = DB::table('sms_statuses')->get();
         $smsStatuses = [];
-        foreach($statuses as $status) {
+        foreach ($statuses as $status) {
             $smsStatuses[$status->status] = $status->name;
         }
         $typesData = [];
-        foreach($types as $type) {
+        foreach ($types as $type) {
             $typesData[$type->id] = $type->name;
         };
         $data = [];
         $index = 0;
-        foreach($sms as $s){
+        foreach ($sms as $s) {
             $data[$index] = [
                 'Номер' => $s->phone,
                 'Тип сообщений' => $typesData[$s->type],
@@ -863,7 +870,7 @@ class SMSController extends Controller
             $index++;
         }
 
-        if($token && $user) {
+        if ($token && $user) {
             return response()->json($data);
         }
 
@@ -874,42 +881,44 @@ class SMSController extends Controller
 
     }
 
-    public function filter(Request $request) {
+    public function filter(Request $request)
+    {
         $token = $request->input('token');
         $phone = $request->input('phone');
         $user = User::where('remember_token', $token)->first();
         $date_from = $request->input('date_from');
         $date_to = $request->input('date_to');
-        $sms_type=$request->input('sms_type');
+        $sms_type = $request->input('sms_type');
 //->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
         $status = [];
 
-        $statusTable = DB::table('sms_statuses')->select('id','name')->get();
+        $statusTable = DB::table('sms_statuses')->select('id', 'name')->get();
 
-        foreach ($statusTable as $s){
+        foreach ($statusTable as $s) {
             $status[$s->id] = $s->name;
         }
-
+//'sms_statuses.name as status',
         $sms = DB::table('sms')
             ->join('sms_types', 'sms.type', '=', 'sms_types.id')
-            ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms_statuses.name as status', 'sms.status as status_id', 'sms.created_at')->orderBy('created_at', 'desc');
-        if($token && $user) {
-            if($phone != '') {
+            ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms.status as status_id', 'sms.created_at')
+            ->orderBy('created_at', 'desc');
+        if ($token && $user) {
+            if ($phone != '') {
                 $sms = $sms->where('sms.phone', $phone);
             }
-            if($sms_type != '')  {
+            if ($sms_type != '') {
                 $sms = $sms->where('sms.type', $sms_type);
             }
-            if($date_from != '' && $date_to == '') {
-                $sms= $sms->whereBetween('sms.created_at', [$date_from, Carbon::now()]);
+            if ($date_from != '' && $date_to == '') {
+                $sms = $sms->whereBetween('sms.created_at', [$date_from, Carbon::now()]);
             }
-            if($date_from == '' && $date_to != '') {
-                $sms= $sms->whereBetween('sms.created_at', [$date_from === '2000-01-01', $date_to]);
+            if ($date_from == '' && $date_to != '') {
+                $sms = $sms->whereBetween('sms.created_at', [$date_from === '2000-01-01', $date_to]);
             }
-            if($date_from != '' && $date_to != '') {
+            if ($date_from != '' && $date_to != '') {
                 $sms = $sms->whereBetween('sms.created_at', [$date_from, $date_to]);
             }
-            foreach ($sms as $sm){
+            foreach ($sms as $sm) {
                 $sms['status'] = $status[$sm->status];
             }
 
@@ -917,7 +926,6 @@ class SMSController extends Controller
 
             return response()->json($sms);
         }
-
 
 
         $result['success'] = false;
