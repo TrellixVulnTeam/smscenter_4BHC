@@ -524,12 +524,14 @@ class SMSController extends Controller
         var_dump($sender);
         //$password = env('SMS_CONSULT_PASSWORD');
         //$sender = env('SMS_CONSULT_SENDER');
-         $url = "https://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type=message&recipient=$phone&sender=$sender&text=$text";
+        /*
+        $url = "https://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type=message&recipient=$phone&sender=$sender&text=$text";
          var_dump($url);
          $query = file_get_contents($url);
          var_dump($query);
-/*
-        $http = new Client(['verify' => false]);
+         */
+
+        $http = new Client;
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
@@ -557,9 +559,10 @@ class SMSController extends Controller
 
                 info('Something went wrong. Bad request' . $phone);
             }
+            return false;
 
         }
-*/
+        return false;
     }
 
     public function checkCron()
