@@ -517,8 +517,11 @@ class SMSController extends Controller
     {
         //$login = env('SMS_CONSULT_LOGIN');
         $login = 'icredit';
+        var_dump($login);
         $password = '7hSBsTvk';
+        var_dump($password);
         $sender = 'MESSAGE';
+        var_dump($sender);
         //$password = env('SMS_CONSULT_PASSWORD');
         //$sender = env('SMS_CONSULT_SENDER');
         $http = new Client(['verify' => false]);
@@ -534,6 +537,7 @@ class SMSController extends Controller
                     'text' => $text
                 ],
             ]);
+            var_dump($response);
             $res = $response->getBody()->getContents();
             if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
                 return true;
