@@ -513,9 +513,12 @@ class SMSController extends Controller
     // метод отправление смс
     public function sendSMS($smsID, $phone, $text)
     {
-        $login = env('SMS_CONSULT_LOGIN');
-        $password = env('SMS_CONSULT_PASSWORD');
-        $sender = env('SMS_CONSULT_SENDER');
+        //$login = env('SMS_CONSULT_LOGIN');
+        $login = 'icredit';
+        $password = '7hSBsTvk';
+        $sender = 'MESSAGE';
+        //$password = env('SMS_CONSULT_PASSWORD');
+        //$sender = env('SMS_CONSULT_SENDER');
         $http = new Client(['verify' => false]);
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
