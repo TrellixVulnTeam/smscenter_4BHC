@@ -169,7 +169,6 @@ class SMSController extends Controller
                 break;
             }
             $send = $this->sendSMS($smsID, $phone, $text);
-            var_dump($send);
             if ($send == false) {
                 $result['message'] = 'Send SMS';
                 break;
@@ -515,21 +514,10 @@ class SMSController extends Controller
     // метод отправление смс
     public function sendSMS($smsID, $phone, $text)
     {
-        //$login = env('SMS_CONSULT_LOGIN');
-        $login = 'icredit';
-        var_dump($login);
-        $password = '7hSBsTvk';
-        var_dump($password);
-        $sender = 'MESSAGE';
-        var_dump($sender);
-        //$password = env('SMS_CONSULT_PASSWORD');
-        //$sender = env('SMS_CONSULT_SENDER');
-        /*
-        $url = "https://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type=message&recipient=$phone&sender=$sender&text=$text";
-         var_dump($url);
-         $query = file_get_contents($url);
-         var_dump($query);
-         */
+        $login = env('SMS_CONSULT_LOGIN');
+        $password = env('SMS_CONSULT_PASSWORD');
+        $sender = env('SMS_CONSULT_SENDER');
+
 
         $http = new Client;
         try {
@@ -549,15 +537,13 @@ class SMSController extends Controller
             if ($s == 'status=100'){
                 return true;
             }
-            $res = $response->getBody()->getContents();
+            /*$res = $response->getBody()->getContents();
             if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
                 echo "yes";
                 return true;
-            }
+            }*/
         } catch (BadResponseException $e) {
             info($e);
-            var_dump($e);
-            var_dump($e->getCode());
             if ($e->getCode() == 400) {
                 info('Something went wrong. Bad request' . $phone);
             } elseif ($e->getCode() == 401) {
