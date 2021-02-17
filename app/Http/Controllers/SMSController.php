@@ -892,10 +892,10 @@ class SMSController extends Controller
 //->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
         $status = [];
 
-        $statusTable = DB::table('sms_statuses')->select('id', 'name')->get();
+        $statusTable = DB::table('sms_statuses')->select('status', 'name')->get();
 
         foreach ($statusTable as $s) {
-            $status[$s->id] = $s->name;
+            $status[$s->status] = $s->name;
         }
 //'sms_statuses.name as status',
         $sms = DB::table('sms')
