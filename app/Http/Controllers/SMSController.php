@@ -525,7 +525,7 @@ class SMSController extends Controller
                 'query' => [
                     'login' => $login,
                     'password' => $password,
-                    'id' => time(),
+                    'id' => $smsID,
                     'type' => 'message',
                     'recipient' => $phone,
                     'sender' => $sender,
