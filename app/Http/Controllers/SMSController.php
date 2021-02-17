@@ -542,13 +542,14 @@ class SMSController extends Controller
                     'text' => $text
                 ],
             ]);
-            var_dump($response);
+            //var_dump($response);
             $res = $response->getBody()->getContents();
             if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
                 return true;
             }
         } catch (BadResponseException $e) {
             info($e);
+            var_dump($e);
             if ($e->getCode() == 400) {
                 info('Something went wrong. Bad request' . $phone);
             } elseif ($e->getCode() == 401) {
