@@ -900,7 +900,7 @@ class SMSController extends Controller
 //'sms_statuses.name as status',
         $sms = DB::table('sms')
             ->join('sms_types', 'sms.type', '=', 'sms_types.id')
-            ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms.status', 'sms.created_at')
+            ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms.status','sms.status as status_id', 'sms.created_at')
             ->orderBy('created_at', 'desc');
         if ($token && $user) {
             if ($phone != '') {
