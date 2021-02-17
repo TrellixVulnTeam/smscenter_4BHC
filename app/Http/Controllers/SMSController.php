@@ -524,10 +524,10 @@ class SMSController extends Controller
         var_dump($sender);
         //$password = env('SMS_CONSULT_PASSWORD');
         //$sender = env('SMS_CONSULT_SENDER');
-       /* $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type=message&recipient=$phone&sender=$sender&text=$text";
-        var_dump($url);
-        $query = file_get_contents($url);
-        var_dump($query);*/
+        /* $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type=message&recipient=$phone&sender=$sender&text=$text";
+         var_dump($url);
+         $query = file_get_contents($url);
+         var_dump($query);*/
 
         $http = new Client(['verify' => false]);
         try {
@@ -550,6 +550,7 @@ class SMSController extends Controller
         } catch (BadResponseException $e) {
             info($e);
             var_dump($e);
+            var_dump($e->getCode());
             if ($e->getCode() == 400) {
                 info('Something went wrong. Bad request' . $phone);
             } elseif ($e->getCode() == 401) {
