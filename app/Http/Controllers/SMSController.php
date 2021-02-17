@@ -891,16 +891,19 @@ class SMSController extends Controller
         $sms_type = $request->input('sms_type');
 //->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
         $status = [];
-
+        $type = [];
         $statusTable = DB::table('sms_statuses')->select('status', 'name')->get();
-
+        $typeTable = DB::table('sms_types')->select('id', 'name')->get();
         foreach ($statusTable as $s) {
             $status[$s->status] = $s->name;
         }
+        foreach ($typeTable as $t) {
+            $type[$t->id] = $t->name;
+        }
 //'sms_statuses.name as status',
+        //->join('sms_types', 'sms.type', '=', 'sms_types.id')
         $sms = DB::table('sms')
-            ->join('sms_types', 'sms.type', '=', 'sms_types.id')
-            ->select('sms.text', 'sms_types.name as type', 'sms.type as sms_type', 'sms.phone', 'sms.status','sms.status as status_id', 'sms.created_at')
+            ->select('sms.text', 'sms.type', 'sms.type as sms_type', 'sms.phone', 'sms.status','sms.status as status_id', 'sms.created_at')
             ->orderBy('created_at', 'desc');
         if ($token && $user) {
             if ($phone != '') {
@@ -922,7 +925,10 @@ class SMSController extends Controller
             $sms = $sms->paginate(15)->appends($request->all());
             foreach ($sms as $sm) {
                 $sm->status = $status[$sm->status];
+                $sm->type = $type[$sm->type];
             }
+
+
 
             return response()->json($sms);
         }
