@@ -545,6 +545,7 @@ class SMSController extends Controller
                 ],
             ]);
             var_dump($response);
+            var_dump($response->getBody()->getContents());
             $res = $response->getBody()->getContents();
             if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
                 return true;
