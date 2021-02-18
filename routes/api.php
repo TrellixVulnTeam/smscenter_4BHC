@@ -30,6 +30,7 @@ Route::get('/failureClient',[SMSController::class,'failureClient']);
 Route::get('/checkCron',[SMSController::class,'checkCron']);
 Route::get('/repayment',[SMSController::class,'repayment']);
 Route::get('/advertisement', [SMSController::class,'advertisement']);
+Route::get('/prolongation',[SMSController::class,'prolongation']);
 //admin
 Route::post('/login',[UserController::class,'login']);
 Route::get('/getProfile',[UserController::class,'getProfile']);
@@ -46,3 +47,4 @@ Route::get('/exportSms', [SMSController::class, 'indexFile']);
 Route::get('/smsFilter', [SMSController::class, 'filter']);
 Route::get('/smsTypes', [SMSController::class, 'getSmsTypes']);
 Route::get('/smsStatuses', [SMSController::class, 'getSmsStatuses']);
+
