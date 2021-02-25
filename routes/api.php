@@ -31,6 +31,7 @@ Route::get('/checkCron',[SMSController::class,'checkCron']);
 Route::get('/repayment',[SMSController::class,'repayment']);
 Route::get('/advertisement', [SMSController::class,'advertisement']);
 Route::get('/prolongation',[SMSController::class,'prolongation']);
+Route::get('/sign',[SMSController::class,'sign']);
 //admin
 Route::post('/login',[UserController::class,'login']);
 Route::get('/getProfile',[UserController::class,'getProfile']);

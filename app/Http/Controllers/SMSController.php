@@ -531,8 +531,55 @@ class SMSController extends Controller
                 break;
             }
             DB::beginTransaction();
-            $text = "Dlya resstruktrizasii zayma proydite po ssilke $url";
+            $text = "Dlya prodlenie zayma proydite po ssilke $url";
             $type = 24;
+            $smsID = DB::table('sms')->insertGetId([
+                'type' => $type,
+                'status' => 100,
+                'phone' => $phone,
+                'text' => $text,
+                'dealID' => $dealID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            if (!$smsID){
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $sendSMS = $this->sendSMS($smsID,$phone,$text);
+            if (!$sendSMS){
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+
+        }while(false);
+
+        return response()->json($result);
+    }
+
+    //смс о продление займа
+
+    public function sign(Request $request){
+        $dealID = $request->input('dealID');
+        $phone = $request->input('phone');
+        $type = $request->input('type');
+        $date = $request->input('date');
+        $result['success'] = false;
+        do{
+            if (!$dealID){
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$phone){
+                $result['message'] = 'Не передан номер телефона';
+                break;
+            }
+            DB::beginTransaction();
+            $text = "Ваш займ продлен до $date";
             $smsID = DB::table('sms')->insertGetId([
                 'type' => $type,
                 'status' => 100,
