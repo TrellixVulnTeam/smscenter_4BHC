@@ -1,7 +1,0 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html
-ErrorDocument 404 http://24kredit.kz/404
-ErrorDocument 500 http://24ikredit.kz/
-ErrorDocument 403 http://24kredit.kz/
