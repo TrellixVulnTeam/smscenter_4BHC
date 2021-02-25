@@ -1,0 +1,80 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-ecde59ba3c2265d56763.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/9DRDO8IBnGzV6AnSNp5zK/_buildManifest.js",
+    "static/9DRDO8IBnGzV6AnSNp5zK/_ssgManifest.js"
+  ],
+  "pages": {
+    "/": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/chunks/a4cadaf523e671975b83b2cb5e4953b55be3ffda.745119a3ae6981ab4efe.js",
+      "static/chunks/pages/index-b4109ea8c3734c9e8de4.js"
+    ],
+    "/_app": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/css/7c1012f588caff52f7f4.css",
+      "static/chunks/pages/_app-557429516d20f59aa598.js"
+    ],
+    "/_error": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/pages/_error-dde2e2c20652fb47d340.js"
+    ],
+    "/login": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/chunks/a4cadaf523e671975b83b2cb5e4953b55be3ffda.745119a3ae6981ab4efe.js",
+      "static/chunks/pages/login-270986456e79a93c0a9f.js"
+    ],
+    "/smscenter": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/dff27125.642cee83db85a2380574.js",
+      "static/chunks/4322cd96.f3332f6362d25e30e07a.js",
+      "static/chunks/f10e284a.c7d36ad0c6dace2ca0a5.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/chunks/a4cadaf523e671975b83b2cb5e4953b55be3ffda.745119a3ae6981ab4efe.js",
+      "static/chunks/pages/smscenter-6644279c32c8c6ca2108.js"
+    ],
+    "/telegram": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/chunks/a4cadaf523e671975b83b2cb5e4953b55be3ffda.745119a3ae6981ab4efe.js",
+      "static/chunks/028be66f96d9ab80f18b43c2d70b27ff75a1c361.25639bfa886ee1c22cf5.js",
+      "static/chunks/pages/telegram-95d24b52ff58cb0d15cb.js"
+    ],
+    "/users": [
+      "static/chunks/main-d8ba19758f5de1a1a214.js",
+      "static/chunks/webpack-eb080e3f091731f228fb.js",
+      "static/chunks/framework.9707fddd9ae5927c17c3.js",
+      "static/chunks/commons.2ff699cd3c65c2bdcb8b.js",
+      "static/chunks/9e92ff3b103f7cbf4a3ee71286ad91033417cf2c.5c3350fea3305a1def04.js",
+      "static/chunks/a4cadaf523e671975b83b2cb5e4953b55be3ffda.745119a3ae6981ab4efe.js",
+      "static/chunks/028be66f96d9ab80f18b43c2d70b27ff75a1c361.25639bfa886ee1c22cf5.js",
+      "static/chunks/pages/users-6e1138d0a8a0a33b456a.js"
+    ]
+  },
+  "ampFirstPages": []
+}

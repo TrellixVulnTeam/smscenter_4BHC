@@ -1,0 +1,11 @@
+{
+  "/_app": "pages/_app.js",
+  "/api/hello": "pages/api/hello.js",
+  "/": "pages/index.js",
+  "/login": "pages/login.js",
+  "/smscenter": "pages/smscenter.js",
+  "/telegram": "pages/telegram.js",
+  "/users": "pages/users.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js"
+}

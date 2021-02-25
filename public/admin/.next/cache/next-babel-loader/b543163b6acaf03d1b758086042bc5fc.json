@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var helloUser = function helloUser() {\n  var myDate = new Date();\n  var hrs = myDate.getHours();\n  var greet;\n  if (hrs < 12) greet = 'Доброе утро';else if (hrs >= 12 && hrs <= 17) greet = 'Добрый день';else if (hrs >= 17 && hrs <= 24) greet = 'Добрый вечер';\n  return greet;\n};","map":null,"metadata":{},"sourceType":"module"}
