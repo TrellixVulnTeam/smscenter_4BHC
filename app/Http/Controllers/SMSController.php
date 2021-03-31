@@ -898,6 +898,60 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
+    public function prolongationReminder(Request $request){
+        $amount = $request->input('amount');
+        $type = $request->input('type');
+        $phone = $request->input('phone');
+        $dealID =$request->input('dealID');
+        $result['success'] = false;
+        do {
+            if (!$dealID) {
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$phone) {
+                $result['message'] = 'Не передан номер телефона';
+                break;
+            }
+            if (!$type) {
+                $result['message'] = 'Не передан тип сообщение';
+                break;
+            }
+
+            if (!$amount) {
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+            $text = "Для продление вам не хватает $amount";
+
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'status' => 100,
+                'type' => $type,
+                'text' => $text,
+                'dealID' => $dealID,
+                'phone' => $phone,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if (!$send) {
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+        } while (false);
+        return response()->json($result);
+
+    }
+
     public function index(Request $request)
     {
         $token = $request->input('token');
@@ -1046,4 +1100,6 @@ class SMSController extends Controller
         $result['message'] = 'Не передан токен телефон или пользователь не найден';
         return response()->json($result);
     }
+
+
 }
