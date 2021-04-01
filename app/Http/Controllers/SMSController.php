@@ -512,21 +512,22 @@ class SMSController extends Controller
     }
 
     //для подписи продление
-    public function prolongation(Request $request){
+    public function prolongation(Request $request)
+    {
         $url = $request->input('url');
         $dealID = $request->input('dealID');
         $phone = $request->input('phone');
         $result['success'] = false;
-        do{
-            if (!$url){
+        do {
+            if (!$url) {
                 $result['message'] = 'Не передан ссылка';
                 break;
             }
-            if (!$dealID){
+            if (!$dealID) {
                 $result['message'] = 'Не передан номер сделки';
                 break;
             }
-            if (!$phone){
+            if (!$phone) {
                 $result['message'] = 'Не передан номер телефона';
                 break;
             }
@@ -542,13 +543,13 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            if (!$smsID){
+            if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Попробуйте позже';
                 break;
             }
-            $sendSMS = $this->sendSMS($smsID,$phone,$text);
-            if (!$sendSMS){
+            $sendSMS = $this->sendSMS($smsID, $phone, $text);
+            if (!$sendSMS) {
                 DB::rollBack();
                 $result['message'] = 'Попробуйте позже';
                 break;
@@ -556,25 +557,26 @@ class SMSController extends Controller
             $result['success'] = true;
             DB::commit();
 
-        }while(false);
+        } while (false);
 
         return response()->json($result);
     }
 
     //смс о продление займа
 
-    public function sign(Request $request){
+    public function sign(Request $request)
+    {
         $dealID = $request->input('dealID');
         $phone = $request->input('phone');
         $type = $request->input('type');
         $date = $request->input('date');
         $result['success'] = false;
-        do{
-            if (!$dealID){
+        do {
+            if (!$dealID) {
                 $result['message'] = 'Не передан номер сделки';
                 break;
             }
-            if (!$phone){
+            if (!$phone) {
                 $result['message'] = 'Не передан номер телефона';
                 break;
             }
@@ -589,13 +591,13 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            if (!$smsID){
+            if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Попробуйте позже';
                 break;
             }
-            $sendSMS = $this->sendSMS($smsID,$phone,$text);
-            if (!$sendSMS){
+            $sendSMS = $this->sendSMS($smsID, $phone, $text);
+            if (!$sendSMS) {
                 DB::rollBack();
                 $result['message'] = 'Попробуйте позже';
                 break;
@@ -603,7 +605,7 @@ class SMSController extends Controller
             $result['success'] = true;
             DB::commit();
 
-        }while(false);
+        } while (false);
 
         return response()->json($result);
     }
@@ -611,19 +613,22 @@ class SMSController extends Controller
     // метод отправление смс
     public function sendSMS($smsID, $phone, $text)
     {
-        $access = DB::table('access')->where('id',1)->first();
+        // $access = DB::table('access')->where('id',1)->first();
 
-        $login = trim($access->login);
-        $password = trim($access->password);
-        $sender = trim($access->sender);
-        $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type='message'&recipient=$phone&sender=$sender&text='$text'";
-        $s = file_get_contents($url);
-        if ($s == 'status=100'){
-            return true;
-        }
-        var_dump($s);
-        return false;
-      /*  $http = new Client;
+        /*        $login = trim($access->login);
+                $password = trim($access->password);
+                $sender = trim($access->sender);
+                $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type='message'&recipient=$phone&sender=$sender&text='$text'";
+                $s = file_get_contents($url);
+                if ($s == 'status=100'){
+                    return true;
+                }
+                var_dump($s);
+                return false;*/
+        $login = 'icredit';
+        $password = '7hSBsTvk';
+        $sender = 'MESSAGE';
+        $http = new Client;
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
@@ -638,15 +643,11 @@ class SMSController extends Controller
             ]);
 
             $s = $response->getBody()->getContents();
-            var_dump($s);
-            if ($s == 'status=100'){
+
+            if ($s == 'status=100') {
                 return true;
             }
-            $res = $response->getBody()->getContents();
-            if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
-                echo "yes";
-                return true;
-            }
+
         } catch (BadResponseException $e) {
             var_dump($e);
             if ($e->getCode() == 400) {
@@ -659,7 +660,7 @@ class SMSController extends Controller
 
         }
         return false;
-        */
+
     }
 
     public function checkCron()
@@ -907,11 +908,12 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-    public function prolongationReminder(Request $request){
+    public function prolongationReminder(Request $request)
+    {
         $amount = $request->input('amount');
         $type = $request->input('type');
         $phone = $request->input('phone');
-        $dealID =$request->input('dealID');
+        $dealID = $request->input('dealID');
         $result['success'] = false;
         do {
             if (!$dealID) {
@@ -1074,7 +1076,7 @@ class SMSController extends Controller
 //'sms_statuses.name as status',
         //->join('sms_types', 'sms.type', '=', 'sms_types.id')
         $sms = DB::table('sms')
-            ->select('sms.text', 'sms.type', 'sms.type as sms_type', 'sms.phone', 'sms.status','sms.status as status_id', 'sms.created_at')
+            ->select('sms.text', 'sms.type', 'sms.type as sms_type', 'sms.phone', 'sms.status', 'sms.status as status_id', 'sms.created_at')
             ->orderBy('created_at', 'desc');
         if ($token && $user) {
             if ($phone != '') {
@@ -1098,7 +1100,6 @@ class SMSController extends Controller
                 $sm->status = $status[$sm->status];
                 $sm->type = $type[$sm->type];
             }
-
 
 
             return response()->json($sms);
