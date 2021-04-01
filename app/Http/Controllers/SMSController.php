@@ -613,9 +613,9 @@ class SMSController extends Controller
     {
         $access = DB::table('access')->where('id',1)->first();
 
-        $login = $access->login;
-        $password = $access->password;
-        $sender = $access->sender;
+        $login = trim($access->login);
+        $password = trim($access->password);
+        $sender = trim($access->sender);
         $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&id=$smsID&type='message'&recipient=$phone&sender=$sender&text='$text'";
         $s = file_get_contents($url);
         if ($s == 'status=100'){
