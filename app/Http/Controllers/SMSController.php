@@ -616,8 +616,14 @@ class SMSController extends Controller
         $login = $access->login;
         $password = $access->password;
         $sender = $access->sender;
-
-        $http = new Client;
+        $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&type='message'&recipient=$phone&sender=$sender&text=$text";
+        $s = file_get_contents($url);
+        if ($s == 'status=100'){
+            return true;
+        }
+        var_dump($s);
+        return false;
+      /*  $http = new Client;
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
@@ -636,11 +642,11 @@ class SMSController extends Controller
             if ($s == 'status=100'){
                 return true;
             }
-            /*$res = $response->getBody()->getContents();
+            $res = $response->getBody()->getContents();
             if ($res == 'status=100' || $res == 'status=101' || $res == 'status=102') {
                 echo "yes";
                 return true;
-            }*/
+            }
         } catch (BadResponseException $e) {
             var_dump($e);
             if ($e->getCode() == 400) {
@@ -653,6 +659,7 @@ class SMSController extends Controller
 
         }
         return false;
+        */
     }
 
     public function checkCron()
