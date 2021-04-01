@@ -616,7 +616,7 @@ class SMSController extends Controller
         $login = $access->login;
         $password = $access->password;
         $sender = $access->sender;
-        $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&type='message'&recipient=$phone&sender=$sender&text=$text";
+        $url = "http://service.sms-consult.kz/get.ashx?login=$login&password=$password&type='message'&recipient=$phone&sender=$sender&text='$text'";
         $s = file_get_contents($url);
         if ($s == 'status=100'){
             return true;
