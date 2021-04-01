@@ -620,7 +620,7 @@ class SMSController extends Controller
 
         $http = new Client;
         try {
-            $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+            $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
                 'query' => [
                     'login' => $login,
                     'password' => $password,
@@ -642,7 +642,7 @@ class SMSController extends Controller
                 return true;
             }*/
         } catch (BadResponseException $e) {
-            info($e);
+            var_dump($e);
             if ($e->getCode() == 400) {
                 info('Something went wrong. Bad request' . $phone);
             } elseif ($e->getCode() == 401) {
