@@ -628,7 +628,7 @@ class SMSController extends Controller
         $login = 'icredit';
         $password = '7hSBsTvk';
         $sender = 'MESSAGE';
-        $http = new Client;
+        $http = new Client(['verify' => false]);
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
@@ -649,7 +649,7 @@ class SMSController extends Controller
             }
 
         } catch (BadResponseException $e) {
-            var_dump($e);
+
             if ($e->getCode() == 400) {
                 info('Something went wrong. Bad request' . $phone);
             } elseif ($e->getCode() == 401) {
