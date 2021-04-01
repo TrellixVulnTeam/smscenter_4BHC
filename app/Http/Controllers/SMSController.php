@@ -616,8 +616,7 @@ class SMSController extends Controller
         $login = $access->login;
         $password = $access->password;
         $sender = $access->sender;
-        info($login);
-        info($password);
+        var_dump($login);
 
         $http = new Client;
         try {
@@ -632,7 +631,7 @@ class SMSController extends Controller
                     'text' => $text
                 ],
             ]);
-
+            var_dump($response);
             $s = $response->getBody()->getContents();
             if ($s == 'status=100'){
                 return true;
