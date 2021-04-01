@@ -616,11 +616,10 @@ class SMSController extends Controller
         $login = $access->login;
         $password = $access->password;
         $sender = $access->sender;
-        var_dump($login);
 
         $http = new Client;
         try {
-            $response = $http->get('https://service.sms-consult.kz/get.ashx?', [
+            $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
                     'login' => $login,
                     'password' => $password,
@@ -631,8 +630,9 @@ class SMSController extends Controller
                     'text' => $text
                 ],
             ]);
-            var_dump($response);
+
             $s = $response->getBody()->getContents();
+            var_dump($s);
             if ($s == 'status=100'){
                 return true;
             }
