@@ -611,9 +611,11 @@ class SMSController extends Controller
     // метод отправление смс
     public function sendSMS($smsID, $phone, $text)
     {
-        $login = env('SMS_CONSULT_LOGIN');
-        $password = env('SMS_CONSULT_PASSWORD');
-        $sender = env('SMS_CONSULT_SENDER');
+        $access = DB::table('access')->where('id',1)->first();
+
+        $login = $access->login;
+        $password = $access->password;
+        $sender = $access->sender;
 
 
         $http = new Client;
