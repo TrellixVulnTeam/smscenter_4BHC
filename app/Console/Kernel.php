@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
+    protected $signature = 'sms:cron';
+    protected $description = 'for checking status';
     protected $commands = [
         //
     ];
@@ -31,6 +33,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
     //     $schedule->command('statusSMS')->hourly();
         /*    $schedule->call(function (){
                 $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
