@@ -6,6 +6,7 @@ use App\Models\SMS;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
+use http\Exception\BadConversionException;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
     //     $schedule->command('statusSMS')->hourly();
-            $schedule->call(function (){
+        /*    $schedule->call(function (){
                 $sql = SMS::where('type','!=',1)->where('status','!=',102)->get();
                 foreach ($sql as $s) {
                     $http = new Client();
@@ -166,6 +167,78 @@ class Kernel extends ConsoleKernel
                             }
                         }
                     } catch (BadResponseException $e) {
+                        info($e);
+                    }
+                }
+
+            })->everyFiveMinutes();*/
+
+            $schedule->call(function (){
+                $sql = SMS::where('status',100)->where('status',101)->get();
+                foreach ($sql as $s){
+                    $http = new Client();
+                    try {
+                        $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+                            'query' => [
+                                'login' => env('SMS_CONSULT_LOGIN'),
+                                'password' => env('SMS_CONSULT_PASSWORD'),
+                                'id' => $s->id,
+                                'type' => 'status',
+                            ],
+                        ]);
+                        $result = $response->getBody()->getContents();
+                        if ($result == 'status=100'){
+                            $t = 100;
+                        }
+                        if ($result == 'status=101'){
+                            $t = 101;
+                        }
+                        if ($result == 'status=102'){
+                            $t = 102;
+                        }
+                        if ($result == 'status=103'){
+                            $t = 103;
+                        }if ($result == 'status=104'){
+                            $t = 104;
+                        }if ($result == 'status=105'){
+                            $t = 105;
+                        }if ($result == 'status=106'){
+                            $t = 106;
+                        }if ($result == 'status=107'){
+                            $t = 107;
+                        }if ($result == 'status=108'){
+                            $t = 108;
+                        }if ($result == 'status=109'){
+                            $t = 109;
+                        }if ($result == 'status=200'){
+                            $t = 200;
+                        }if ($result == 'status=201'){
+                            $t = 201;
+                        }
+                        if ($result == 'status=202'){
+                            $t = 202;
+                        }if ($result == 'status=203'){
+                            $t = 203;
+                        }if ($result == 'status=204'){
+                            $t = 204;
+                        }
+                        if ($result == 'status=205'){
+                            $t = 205;
+                        }
+                        if ($result == 'status=206'){
+                            $t = 206;
+                        }
+                        if ($result == 'status=207'){
+                            $t = 207;
+                        }
+                        $update = SMS::where('id',$s->id)->update(['status' => $t,'updated_at' => Carbon::now()]);
+                        $status_text = DB::table('sms_statuses')->select('description')->where('status',$t)->first();
+                        if (isset($s) && isset($s->dealID)){
+                            $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text=$s->text";
+                        }else if (isset($s) && isset($s->leadID)){
+                            $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text=$s->text";
+                        }
+                    } catch (BadConversionException $e) {
                         info($e);
                     }
                 }
