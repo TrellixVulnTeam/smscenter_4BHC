@@ -42,14 +42,16 @@ class CheckStatus extends Command
      */
     public function handle()
     {
+        $access = DB::table('access')->where('id',1)->first();
+
         $sql = SMS::where('status',100)->orWhere('status',101)->get();
         foreach ($sql as $s){
             $http = new Client();
             try {
                 $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                     'query' => [
-                        'login' => env('SMS_CONSULT_LOGIN'),
-                        'password' => env('SMS_CONSULT_PASSWORD'),
+                        'login' => $access->login,
+                        'password' => $access->password,
                         'id' => $s->id,
                         'type' => 'status',
                     ],
