@@ -666,7 +666,7 @@ class SMSController extends Controller
 
     public function checkCron()
     {
-        $sql = DB::table('sms')->where('status',100)->where('status',101)->get();
+        $sql = DB::table('sms')->where('status',100)->orWhere('status',101)->get();
         var_dump($sql);
         echo "test";
         foreach ($sql as $s){
