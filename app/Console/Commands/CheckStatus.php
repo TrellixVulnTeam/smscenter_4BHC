@@ -42,7 +42,7 @@ class CheckStatus extends Command
      */
     public function handle()
     {
-        $sql = SMS::where('status',100)->where('status',101)->get();
+        $sql = SMS::where('status',100)->orWhere('status',101)->get();
         foreach ($sql as $s){
             $http = new Client();
             try {
