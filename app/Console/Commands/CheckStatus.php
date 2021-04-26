@@ -105,6 +105,8 @@ class CheckStatus extends Command
                 $update = SMS::where('id',$s->id)->update(['status' => $t,'updated_at' => Carbon::now()]);
                 $status_text = DB::table('sms_statuses')->select('description')->where('status',$t)->first();
                 $status_text = $status_text->description;
+                $text = str_replace(" ", "%20", $text);
+                $status_text = str_replace(" ", "%20", $status_text);
                 if (isset($s) && isset($s->dealID)){
                     $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text='$text'";
                 }else if (isset($s) && isset($s->leadID)){
