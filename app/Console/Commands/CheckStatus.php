@@ -104,9 +104,9 @@ class CheckStatus extends Command
                 $update = SMS::where('id',$s->id)->update(['status' => $t,'updated_at' => Carbon::now()]);
                 $status_text = DB::table('sms_statuses')->select('description')->where('status',$t)->first();
                 if (isset($s) && isset($s->dealID)){
-                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text=$s->text";
+                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text='$s->text'";
                 }else if (isset($s) && isset($s->leadID)){
-                    $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text=$s->text";
+                    $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text='$s->text'";
                 }
             } catch (BadConversionException $e) {
                 info($e);
