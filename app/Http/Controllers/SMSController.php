@@ -731,9 +731,13 @@ class SMSController extends Controller
                 }else if (isset($s) && isset($s->leadID)){
                     $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text=$s->text";
                 }
+                if (isset($url)){
+                    file_get_contents($url);
+                }
             } catch (BadConversionException $e) {
                 info($e);
             }
+            break;
         }
     }
 
