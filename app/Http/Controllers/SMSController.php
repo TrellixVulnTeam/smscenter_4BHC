@@ -1025,13 +1025,13 @@ class SMSController extends Controller
                 $sms = $sms->where('sms.type', $sms_type);
             }
             if ($date_from != '' && $date_to == '') {
-                $sms = $sms->whereBetween('sms.created_at', [$date_from, Carbon::now()]);
+                $sms = $sms->where('sms.created_at', '>=',$date_from);
             }
             if ($date_from == '' && $date_to != '') {
-                $sms = $sms->whereBetween('sms.created_at', [$date_from === '2000-01-01', $date_to]);
+                $sms = $sms->where('sms.created_at', '<=',$date_to);
             }
             if ($date_from != '' && $date_to != '') {
-                $sms = $sms->whereBetween('sms.created_at', [$date_from, $date_to]);
+                $sms = $sms->where('sms.created_at', '>=',$date_from)->where('sms.created_at','<=',$date_to);
             }
 
             $sms = $sms->paginate(15)->appends($request->all());
