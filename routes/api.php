@@ -34,19 +34,21 @@ Route::get('/prolongation',[SMSController::class,'prolongation']);
 Route::get('/sign',[SMSController::class,'sign']);
 Route::get('/prolongationReminder',[SMSController::class,'prolongationReminder']);
 //admin
-Route::post('/login',[UserController::class,'login']);
-Route::get('/getProfile',[UserController::class,'getProfile']);
-Route::get('/logout',[UserController::class,'logout']);
-Route::get('/changePassword',[UserController::class,'changePassword']);
-Route::get('/users',[UserController::class,'index']);
-Route::get('/givePermission',[UserController::class,'givePermission']);
-Route::get('/deleteAccount',[UserController::class,'deleteAccount']);
-Route::put('/edit',[UserController::class,'edit']);
-Route::put('/editOwn',[UserController::class,'editOwn']);
-Route::post('/users',[UserController::class,'addUser']);
-Route::get('/sms', [SMSController::class, 'index']);
-Route::get('/exportSms', [SMSController::class, 'indexFile']);
-Route::get('/smsFilter', [SMSController::class, 'filter']);
-Route::get('/smsTypes', [SMSController::class, 'getSmsTypes']);
-Route::get('/smsStatuses', [SMSController::class, 'getSmsStatuses']);
+Route::group(['middleware' => 'cors'],function(){
+    Route::post('/login',[UserController::class,'login']);
+    Route::get('/getProfile',[UserController::class,'getProfile']);
+    Route::get('/logout',[UserController::class,'logout']);
+    Route::get('/changePassword',[UserController::class,'changePassword']);
+    Route::get('/users',[UserController::class,'index']);
+    Route::get('/givePermission',[UserController::class,'givePermission']);
+    Route::get('/deleteAccount',[UserController::class,'deleteAccount']);
+    Route::put('/edit',[UserController::class,'edit']);
+    Route::put('/editOwn',[UserController::class,'editOwn']);
+    Route::post('/users',[UserController::class,'addUser']);
+    Route::get('/sms', [SMSController::class, 'index']);
+    Route::get('/exportSms', [SMSController::class, 'indexFile']);
+    Route::get('/smsFilter', [SMSController::class, 'filter']);
+    Route::get('/smsTypes', [SMSController::class, 'getSmsTypes']);
+    Route::get('/smsStatuses', [SMSController::class, 'getSmsStatuses']);
+});
 

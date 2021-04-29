@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ModifyHeadersMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -23,6 +24,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         ModifyHeadersMiddleware::class,
+        CorsMiddleware::class,
     ];
 
     /**
@@ -64,5 +66,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'cors' => CorsMiddleware::class,
     ];
 }
