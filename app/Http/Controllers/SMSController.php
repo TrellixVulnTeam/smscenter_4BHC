@@ -384,8 +384,6 @@ class SMSController extends Controller
     // просрочка хард
     public function hardPeriod(Request $request)
     {
-        $amount = $request->input('amount');
-        $prolongation = $request->input('prolongation');
         $dealID = $request->input('dealID');
         $phone = $request->input('phone');
         $type = $request->input('type');
@@ -393,14 +391,6 @@ class SMSController extends Controller
         $result['message'] = false;
 
         do {
-            if (!$amount) {
-                $result['message'] = 'Не передан сумма';
-                break;
-            }
-            if (!$prolongation) {
-                $result['message'] = 'Не передан сумма пролонгации';
-                break;
-            }
             if (!$phone) {
                 $result['message'] = 'Не передан телефон';
                 break;
@@ -414,7 +404,76 @@ class SMSController extends Controller
                 break;
             }
             if ($type == 18) {
-                $text = 'Vash Dolg Uvelichilsa Vas Peredali KOLLEKTORAM i Nachisslili vse Peni mojete prolongirovat za' . $prolongation . 'tg ili zakrit zaym za ' . $amount . 'tg vy mozhete Oplatit v Qiwi,kassa24 iLi na Site www.';
+                $text = "Uvedomlyaem Vas o tom,chto Vash zaem peredan v otdel vzy`skaniya.I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 27) {
+                $text = "Ne pereplachivayte! Vozpol`zujtes` uslugoj PRODLENIE ZAJMA! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 28) {
+                $text = "Segodnya samiy udachniy den`,chto by` prodlit` svoj zaem! Ne upustite takuyu vozmozhnost`! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 29) {
+                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 30) {
+                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 31) {
+                $text = "V sluchae dal`nejshego ignorirovaniya zvonkov, Kompaniya budet vy`nuzhdena obratit`sya v Pravookhranitel`ny`e organy`. I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 32) {
+                $text = "Dobry`j den`! Ignoriruya zvonki kompanii Vy` ne reshite problemu s zadolzhennost`yu! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 33) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 34) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 35) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 36) {
+                $text = "Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 37) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 38) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 39) {
+                $text = "Vash neobosnovanny`j otkaz ot oplaty` oficzial`no zafiksirovan. Esli oplaty` ne budet v techenii dvukh posleduyushhikh dnej, kompaniya  primenit mery` prinuditel`no vzy`skaniya.  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 40) {
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 41) {
+                $text = "Vy vse eshhe ne proizveli pogasheniya svoej zadolzhennosti. Segodnya poslednij den` pered peredachej dogovora v otdel dosudebnogo vzy`skaniya. I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 42) {
+                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 43) {
+                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 44) {
+                $text = "Uvazhaemiy klient, cherez 6 dnej  Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00;What's app: 8 701 538 24 39";
+            }
+            if ($type == 45) {
+                $text = "Uvazhaemiy  klient, cherez 5 dnej Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 46) {
+                $text = "Uvazhaemiy klient, cherez 4 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 47) {
+                $text = "Uvazhaemiy klient, cherez 3 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+            }
+            if ($type == 48) {
+                $text = "Uvazhaemiy klient, cherez 2 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 40";
+            }
+            if ($type == 49) {
+                $text = "Uvazhaemiy klient! Zavtra Vash zaem budet peredan v kollektorskuyu kompaniyu dlya dal`neyshego vzy`skaniya zadolzhennosti.  I-credit +7 727 250 15 00; What's app: 8 701 538 24 40";
             }
 
             DB::beginTransaction();
@@ -666,10 +725,10 @@ class SMSController extends Controller
 
     public function checkCron()
     {
-        $sql = DB::table('sms')->where('status',100)->orWhere('status',101)->get();
+        $sql = DB::table('sms')->where('status', 100)->orWhere('status', 101)->get();
         var_dump($sql);
         echo "test";
-        foreach ($sql as $s){
+        foreach ($sql as $s) {
             $http = new Client();
             try {
                 $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
@@ -682,58 +741,68 @@ class SMSController extends Controller
                 ]);
                 $result = $response->getBody()->getContents();
                 var_dump($result);
-                if ($result == 'status=100'){
+                if ($result == 'status=100') {
                     $t = 100;
                 }
-                if ($result == 'status=101'){
+                if ($result == 'status=101') {
                     $t = 101;
                 }
-                if ($result == 'status=102'){
+                if ($result == 'status=102') {
                     $t = 102;
                 }
-                if ($result == 'status=103'){
+                if ($result == 'status=103') {
                     $t = 103;
-                }if ($result == 'status=104'){
+                }
+                if ($result == 'status=104') {
                     $t = 104;
-                }if ($result == 'status=105'){
+                }
+                if ($result == 'status=105') {
                     $t = 105;
-                }if ($result == 'status=106'){
+                }
+                if ($result == 'status=106') {
                     $t = 106;
-                }if ($result == 'status=107'){
+                }
+                if ($result == 'status=107') {
                     $t = 107;
-                }if ($result == 'status=108'){
+                }
+                if ($result == 'status=108') {
                     $t = 108;
-                }if ($result == 'status=109'){
+                }
+                if ($result == 'status=109') {
                     $t = 109;
-                }if ($result == 'status=200'){
+                }
+                if ($result == 'status=200') {
                     $t = 200;
-                }if ($result == 'status=201'){
+                }
+                if ($result == 'status=201') {
                     $t = 201;
                 }
-                if ($result == 'status=202'){
+                if ($result == 'status=202') {
                     $t = 202;
-                }if ($result == 'status=203'){
+                }
+                if ($result == 'status=203') {
                     $t = 203;
-                }if ($result == 'status=204'){
+                }
+                if ($result == 'status=204') {
                     $t = 204;
                 }
-                if ($result == 'status=205'){
+                if ($result == 'status=205') {
                     $t = 205;
                 }
-                if ($result == 'status=206'){
+                if ($result == 'status=206') {
                     $t = 206;
                 }
-                if ($result == 'status=207'){
+                if ($result == 'status=207') {
                     $t = 207;
                 }
-                $update = SMS::where('id',$s->id)->update(['status' => $t,'updated_at' => Carbon::now()]);
-                $status_text = DB::table('sms_statuses')->select('description')->where('status',$t)->first();
-                if (isset($s) && isset($s->dealID)){
+                $update = SMS::where('id', $s->id)->update(['status' => $t, 'updated_at' => Carbon::now()]);
+                $status_text = DB::table('sms_statuses')->select('description')->where('status', $t)->first();
+                if (isset($s) && isset($s->dealID)) {
                     $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text=$s->text";
-                }else if (isset($s) && isset($s->leadID)){
+                } else if (isset($s) && isset($s->leadID)) {
                     $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text=$s->text";
                 }
-                if (isset($url)){
+                if (isset($url)) {
                     file_get_contents($url);
                 }
             } catch (BadConversionException $e) {
@@ -1025,13 +1094,13 @@ class SMSController extends Controller
                 $sms = $sms->where('sms.type', $sms_type);
             }
             if ($date_from != '' && $date_to == '') {
-                $sms = $sms->where('sms.created_at', '>=',$date_from);
+                $sms = $sms->where('sms.created_at', '>=', $date_from);
             }
             if ($date_from == '' && $date_to != '') {
-                $sms = $sms->where('sms.created_at', '<=',$date_to);
+                $sms = $sms->where('sms.created_at', '<=', $date_to);
             }
             if ($date_from != '' && $date_to != '') {
-                $sms = $sms->where('sms.created_at', '>=',$date_from)->where('sms.created_at','<=',$date_to);
+                $sms = $sms->where('sms.created_at', '>=', $date_from)->where('sms.created_at', '<=', $date_to);
             }
 
             $sms = $sms->paginate(15)->appends($request->all());
