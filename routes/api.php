@@ -52,3 +52,4 @@ Route::group(['middleware' => 'cors'],function(){
     Route::get('/smsStatuses', [SMSController::class, 'getSmsStatuses']);
 });
 
+Route::get('/test',[SMSController::class,'test']);

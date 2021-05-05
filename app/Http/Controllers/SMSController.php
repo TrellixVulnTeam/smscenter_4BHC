@@ -1119,5 +1119,40 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
+    public function test(){
+        $source = "NASH";
+        $phone = 77471656497;
+        $code = 7292;
+        $result['success'] = false;
+        do {
 
+            DB::beginTransaction();
+            $text = "Код для подтверждения на сайте $source $code";
+
+            $smsID = SMS::insertGetId([
+                'type' => 1,
+                'text' => $text,
+                'phone' => $phone,
+                'status' => 100,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
+
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if ($send == true) {
+                $result['success'] = true;
+            } else {
+                break;
+            }
+            DB::commit();
+
+        } while (false);
+        return response()->json($result);
+    }
 }
