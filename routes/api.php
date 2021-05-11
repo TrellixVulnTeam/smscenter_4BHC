@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NashController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -33,6 +34,9 @@ Route::get('/advertisement', [SMSController::class,'advertisement']);
 Route::get('/prolongation',[SMSController::class,'prolongation']);
 Route::get('/sign',[SMSController::class,'sign']);
 Route::get('/prolongationReminder',[SMSController::class,'prolongationReminder']);
+//nash
+Route::get('/identification',[NashController::class,'identification']);
+Route::get('/sendSms',[NashController::class,'sendSms']);
 //admin
 Route::group(['middleware' => 'cors'],function(){
     Route::post('/login',[UserController::class,'login']);
