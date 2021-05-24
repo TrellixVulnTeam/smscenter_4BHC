@@ -971,6 +971,51 @@ class SMSController extends Controller
 
     }
 
+
+    public function resetPassword(Request $request){
+        $phone = $request->input('phone');
+        $url = $request->input('url');
+        $result['success'] = false;
+        do{
+            if (!$phone){
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+            if (!$url){
+                $result['message'] = 'Не передан ссылка';
+                break;
+            }
+            $date = date('Y-m-d');
+            $check = DB::table('sms')->where('phone',$phone)->where('type',51)->where('created_at','>=',$date)->first();
+            if ($check){
+                $result['message'] = 'Сегодня вам уже отправлен смс';
+                break;
+            }
+            $text = "dlya vosstanovlenie parolya pereydite po ssilke $url";
+            DB::beginTransaction();
+            $smsID = DB::table('sms')->insertGetId([
+                'type' => 51,
+                'status' => 100,
+                'phone' => $phone,
+                'text' => $text,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            if (!$smsID){
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if (!$send) {
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+        }while(false);
+        return response()->json($result);
+    }
+
     public function index(Request $request)
     {
         $token = $request->input('token');
