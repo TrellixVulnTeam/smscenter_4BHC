@@ -55,9 +55,9 @@ class NashController extends Controller
     }
 
     public function sendSms($smsID,$phone,$text){
-        $login = 'icredit';
-        $password = '7hSBsTvk';
-        $sender = 'MESSAGE';
+        $login = env('SMS_NASH_LOGIN');
+        $password = env('SMS_NASH_PASSWORD');
+        $sender = env('SMS_NASH_SENDER');
         $http = new Client(['verify' => false]);
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
