@@ -703,7 +703,7 @@ class SMSController extends Controller
             ]);
 
             $s = $response->getBody()->getContents();
-
+            info($response->getBody());
             if ($s == 'status=100') {
                 return true;
             }
