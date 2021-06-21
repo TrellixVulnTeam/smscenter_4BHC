@@ -106,6 +106,9 @@ class NashController extends Controller
         $password = env('SMS_NASH_PASSWORD');
         $sender = env('SMS_NASH_SENDER');
         $http = new Client(['verify' => false]);
+        info($login);
+        info($password);
+        info($sender);
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
                 'query' => [
