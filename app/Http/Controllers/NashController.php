@@ -62,12 +62,15 @@ class NashController extends Controller
         $result['success'] = false;
         do{
             if (!$leadID){
+                $result['message'] = 'лид';
                 break;
             }
             if (!$phone){
+                $result['message'] = 'тел';
                 break;
             }
             if (!$url){
+                $result['message'] = 'ссылка';
                 break;
             }
             $text = "Dlya podpisanie dogovora proydite po ssilke $url";
