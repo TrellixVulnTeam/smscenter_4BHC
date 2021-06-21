@@ -57,7 +57,7 @@ class NashController extends Controller
     public function nashSign(Request $request)
     {
         $leadID = $request->input('leadID');
-        $phone = $request->input('phone]');
+        $phone = $request->input('phone');
         $url = $request->input('url');
         $result['success'] = false;
         do{
