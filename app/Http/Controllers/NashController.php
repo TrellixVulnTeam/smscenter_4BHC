@@ -54,6 +54,50 @@ class NashController extends Controller
         return response()->json($result);
     }
 
+    public function nashSign(Request $request)
+    {
+        $leadID = $request->input('leadID');
+        $phone = $request->input('phone]');
+        $url = $request->input('url');
+        $result['success'] = false;
+        do{
+            if (!$leadID){
+                break;
+            }
+            if (!$phone){
+                break;
+            }
+            if (!$url){
+                break;
+            }
+            $text = "Dlya podpisanie dogovora proydite po ssilke $url";
+            DB::beginTransaction();
+            $smsID = DB::table('sms')->insertGetId([
+                'type' => 52,
+                'status' => 100,
+                'phone' => $phone,
+                'text' => $text,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $sendSMS = $this->sendSms($smsID, $phone, $text);
+            if (!$sendSMS) {
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+
+            DB::commit();
+            $result['success'] = true;
+        }while(false);
+        return response()->json($result);
+    }
+
     public function sendSms($smsID,$phone,$text){
         $login = env('SMS_NASH_LOGIN');
         $password = env('SMS_NASH_PASSWORD');

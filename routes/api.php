@@ -38,6 +38,7 @@ Route::get('/resetPassword',[SMSController::class,'resetPassword']);
 //nash
 Route::get('/identification',[NashController::class,'identification']);
 Route::get('/sendSms',[NashController::class,'sendSms']);
+Route::get('/nashSign',[NashController::class,'nashSign']);
 //admin
 Route::group(['middleware' => 'cors'],function(){
     Route::post('/login',[UserController::class,'login']);
