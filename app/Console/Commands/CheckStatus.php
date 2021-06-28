@@ -108,16 +108,43 @@ class CheckStatus extends Command
                 $text = str_replace(" ", "%20", $text);
                 $status_text = str_replace(" ", "%20", $status_text);
                 if (isset($s) && isset($s->dealID)){
-                    $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text='$text'";
+                    $sending = DB::table('status')->where('status',$t)->where('dealID',$s->dealID)->where('sms_id',$s->id)->first();
+                    if (isset($sending)){
+                        $url = '';
+                    }else{
+                        $url = "https://icredit-crm.kz/api/webhock/responseDeal.php?dealID=$s->dealID&status_text='$status_text'&text='$text'";
+                        $ins = DB::table('status')->insertGetId([
+                            'status' => $t,
+                            'sms_id' => $s->id,
+                            'dealID' => $s->dealID,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                    }
+
                 }else if (isset($s) && isset($s->leadID)){
-                    $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text='$text'";
+                    $sending = DB::table('status')->where('status',$t)->where('leadID',$s->leadID)->where('sms_id',$s->id)->first();
+                    if (isset($sending)){
+                        $url = '';
+                    }else{
+                        $url = "https://icredit-crm.kz/api/webhock/responseLead.php?leadID=$s->leadID&status_text='$status_text'&text='$text'";
+                        $ins = DB::table('status')->insertGetId([
+                            'status' => $t,
+                            'sms_id' => $s->id,
+                            'leadID' => $s->leadID,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                    }
                 }
-                if (isset($url)){
+                if (isset($url) && $url != ''){
                     file_get_contents($url);
                 }
             } catch (BadConversionException $e) {
                 info($e);
             }
         }
+        return true;
     }
+
 }
