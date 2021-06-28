@@ -132,7 +132,7 @@ class SMSController extends Controller
     {
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram , oni podberut dlja vas zajmy s vysokim odobreniem https://kaz-zaem.online/';
+        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://bistriedengi.kz/index.php?adname=hpnlx';
         $type = 3;
         $result['success'] = false;
 
