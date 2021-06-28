@@ -141,4 +141,47 @@ class NashController extends Controller
         }
         return false;
     }
+
+    public function fourthStage(Request $request){
+        $phone = $request->input('phone');
+        $code = $request->input('code');
+        $result['success'] = false;
+
+        do{
+            if (!$phone){
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+            if (!$code){
+                $result['message'] = 'Не передан код';
+                break;
+            }
+            $text = "Код подтверждение на сайте nashcompany.kz $code";
+            DB::beginTransaction();
+            $smsID = DB::table('sms')->insertGetId([
+                'type' => 53,
+                'status' => 100,
+                'phone' => $phone,
+                'text' => $text,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $sendSMS = $this->sendSms($smsID, $phone, $text);
+            if (!$sendSMS) {
+                DB::rollBack();
+                $result['message'] = 'Попробуйте позже';
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+
+
+        }while(false);
+        return response()->json($result);
+    }
 }

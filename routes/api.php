@@ -37,6 +37,7 @@ Route::get('/prolongationReminder',[SMSController::class,'prolongationReminder']
 Route::get('/resetPassword',[SMSController::class,'resetPassword']);
 //nash
 Route::get('/identification',[NashController::class,'identification']);
+Route::get('/fourthStage',[NashController::class,'fourthStage']);
 Route::get('/sendSms',[NashController::class,'sendSms']);
 Route::get('/nashSign',[NashController::class,'nashSign']);
 //admin
