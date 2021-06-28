@@ -174,7 +174,7 @@ class NashController extends Controller
             $sendSMS = $this->sendSms($smsID, $phone, $text);
             if (!$sendSMS) {
                 DB::rollBack();
-                $result['message'] = 'Попробуйте позже';
+                $result['message'] = 'Попробуйте позже ошибка в смс центре';
                 break;
             }
             $result['success'] = true;
