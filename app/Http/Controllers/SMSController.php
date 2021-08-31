@@ -404,76 +404,76 @@ class SMSController extends Controller
                 break;
             }
             if ($type == 18) {
-                $text = "Uvedomlyaem Vas o tom,chto Vash zaem peredan v otdel vzy`skaniya.I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Uvedomlyaem Vas o tom,chto Vash zaem peredan v otdel vzy`skaniya.I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 27) {
-                $text = "Ne pereplachivayte! Vozpol`zujtes` uslugoj PRODLENIE ZAJMA! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Ne pereplachivayte! Vozpol`zujtes` uslugoj PRODLENIE ZAJMA! I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 28) {
-                $text = "Segodnya samiy udachniy den`,chto by` prodlit` svoj zaem! Ne upustite takuyu vozmozhnost`! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Segodnya samiy udachniy den`,chto by` prodlit` svoj zaem! Ne upustite takuyu vozmozhnost`! I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 29) {
-                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 30) {
-                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Srochno pogasite svoyu zadolzhennost` ili vospol`zujtes` uslugoj prodleniya! I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 31) {
-                $text = "V sluchae dal`nejshego ignorirovaniya zvonkov, Kompaniya budet vy`nuzhdena obratit`sya v Pravookhranitel`ny`e organy`. I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "V sluchae dal`nejshego ignorirovaniya zvonkov, Kompaniya budet vy`nuzhdena obratit`sya v Pravookhranitel`ny`e organy`. I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 32) {
-                $text = "Dobry`j den`! Ignoriruya zvonki kompanii Vy` ne reshite problemu s zadolzhennost`yu! I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Dobry`j den`! Ignoriruya zvonki kompanii Vy` ne reshite problemu s zadolzhennost`yu! I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 33) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 34) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 35) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 36) {
-                $text = "Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 37) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 38) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 39) {
-                $text = "Vash neobosnovanny`j otkaz ot oplaty` oficzial`no zafiksirovan. Esli oplaty` ne budet v techenii dvukh posleduyushhikh dnej, kompaniya  primenit mery` prinuditel`no vzy`skaniya.  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Vash neobosnovanny`j otkaz ot oplaty` oficzial`no zafiksirovan. Esli oplaty` ne budet v techenii dvukh posleduyushhikh dnej, kompaniya  primenit mery` prinuditel`no vzy`skaniya.  I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 40) {
-                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "DOLG po Vashemu zaymu uvelichivayetsya s kazhdym dnyom! Vam neobhodimo SROCNO oplatit` svoyu zadolzhennost`  ili svyazat`sya s kompaniej I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 41) {
-                $text = "Vy vse eshhe ne proizveli pogasheniya svoej zadolzhennosti. Segodnya poslednij den` pered peredachej dogovora v otdel dosudebnogo vzy`skaniya. I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Vy vse eshhe ne proizveli pogasheniya svoej zadolzhennosti. Segodnya poslednij den` pered peredachej dogovora v otdel dosudebnogo vzy`skaniya. I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 42) {
-                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 43) {
-                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Vash dogovor by`l peredan v otdel dosudebnogo vzy`skaniya! SROCHNO oplatite svoyu zadolzhennost` !  I-credit: +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 44) {
-                $text = "Uvazhaemiy klient, cherez 6 dnej  Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00;What's app: 8 701 538 24 39";
+                $text = "Uvazhaemiy klient, cherez 6 dnej  Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 778 870 10 29;What's app: +77752163255";
             }
             if ($type == 45) {
-                $text = "Uvazhaemiy  klient, cherez 5 dnej Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Uvazhaemiy  klient, cherez 5 dnej Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 46) {
-                $text = "Uvazhaemiy klient, cherez 4 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Uvazhaemiy klient, cherez 4 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 47) {
-                $text = "Uvazhaemiy klient, cherez 3 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 39";
+                $text = "Uvazhaemiy klient, cherez 3 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 778 870 10 29; What's app: +77752163255";
             }
             if ($type == 48) {
-                $text = "Uvazhaemiy klient, cherez 2 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 727 250 15 00; What's app: 8 701 538 24 40";
+                $text = "Uvazhaemiy klient, cherez 2 dnya Vash zaem budet peredan v KOLLEKTORSKUYU KOMPANIYU! Uspejte Oplatit` dolg BEZ proczentov i peni  pryamo sejchas! I-credit +7 778 870 10 29; What's app: 8 701 538 24 40";
             }
             if ($type == 49) {
-                $text = "Uvazhaemiy klient! Zavtra Vash zaem budet peredan v kollektorskuyu kompaniyu dlya dal`neyshego vzy`skaniya zadolzhennosti.  I-credit +7 727 250 15 00; What's app: 8 701 538 24 40";
+                $text = "Uvazhaemiy klient! Zavtra Vash zaem budet peredan v kollektorskuyu kompaniyu dlya dal`neyshego vzy`skaniya zadolzhennosti.  I-credit +7 778 870 10 29; What's app: 8 701 538 24 40";
             }
 
             DB::beginTransaction();
