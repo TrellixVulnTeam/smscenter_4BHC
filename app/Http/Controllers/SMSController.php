@@ -130,9 +130,11 @@ class SMSController extends Controller
     // отказ клиенту
     public function failureClient(Request $request)
     {
+        //leadgid - https://kaz-zaem.online/
+        //upsala - https://bistriedengi.kz/index.php?adname=hpnlx
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://bistriedengi.kz/index.php?adname=hpnlx';
+        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://kaz-zaem.online/';
         $type = 3;
         $result['success'] = false;
 
