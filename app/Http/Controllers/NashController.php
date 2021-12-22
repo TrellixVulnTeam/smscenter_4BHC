@@ -25,7 +25,7 @@ class NashController extends Controller
                 $result['message'] = 'Не передан код';
                 break;
             }
-            $text = "Код подтверждение на сайте nashcompany.kz $code";
+            $text = "Код подтверждение на сайте anticollector.kz $code";
             DB::beginTransaction();
             $smsID = DB::table('sms')->insertGetId([
                 'type' => 50,
