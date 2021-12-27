@@ -102,9 +102,9 @@ class NashController extends Controller
     }
 
     public function sendSms($smsID,$phone,$text){
-        $login = env('SMS_NASH_LOGIN');
-        $password = env('SMS_NASH_PASSWORD');
-        $sender = env('SMS_NASH_SENDER');
+        $login = 'nashcompany';
+        $password = 'Rst39u4u';
+        $sender = 'Antikollekt';
         $http = new Client(['verify' => false]);
         info($login);
         info($password);
