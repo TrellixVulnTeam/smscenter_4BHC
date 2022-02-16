@@ -134,7 +134,7 @@ class SMSController extends Controller
         //upsala - https://bistriedengi.kz/index.php?adname=hpnlx
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://kaz-zaem.online/';
+        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://track.leadbazaar.co/click?pid=3237&offer_id=167';
         $type = 3;
         $result['success'] = false;
 
