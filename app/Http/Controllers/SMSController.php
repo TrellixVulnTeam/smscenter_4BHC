@@ -98,6 +98,11 @@ class SMSController extends Controller
             }
 
             $text = 'Vam ODOBRENO ' . $amount . ' tg. Dlya polucheniya pereydite ' . $url;
+            $first = DB::table('sms')->where('type',2)->where('leadID',$leadID)->first();
+            if (isset($first)){
+                $result['message'] = 'Уже отправлено смс';
+                break;
+            }
             DB::beginTransaction();
             $smsID = SMS::insertGetId([
                 'type' => 2,
