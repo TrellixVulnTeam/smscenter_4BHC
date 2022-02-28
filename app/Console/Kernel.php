@@ -178,7 +178,7 @@ class Kernel extends ConsoleKernel
 
             //$schedule->call(function (){
 
-            $schedule->command('check:status')->everyFifteenMinutes();
+            $schedule->command('failure:sms')->everyFifteenMinutes();
     }
 
     public function writeToBase($status,$leadID,$dealID,$smsID){

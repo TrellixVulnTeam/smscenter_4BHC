@@ -119,6 +119,9 @@ class SMSController extends Controller
                 $result['message'] = 'Something went wrong!';
                 break;
             }
+
+
+
             $send = $this->sendSMS($smsID, $phone, $text);
             if ($send == false) {
                 break;
@@ -139,7 +142,7 @@ class SMSController extends Controller
         //upsala - https://bistriedengi.kz/index.php?adname=hpnlx
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://track.leadbazaar.co/click?pid=3237&offer_id=167';
+        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://oformitzaymvkz.com/';
         $type = 3;
         $result['success'] = false;
 
@@ -177,6 +180,12 @@ class SMSController extends Controller
                 break;
             }
             $send = $this->sendSMS($smsID, $phone, $text);
+            DB::table('failure')->insertGetId([
+               'phone' => $phone,
+               'status' => 1,
+               'created_at' => Carbon::now(),
+               'updated_at' => Carbon::now(),
+            ]);
             if ($send == false) {
                 $result['message'] = 'Send SMS';
                 break;
