@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
     protected $description = 'for checking status';
     protected $commands = [
         Commands\CheckStatus::class,
+        Commands\FailureSMS::class,
     ];
 
     /**
