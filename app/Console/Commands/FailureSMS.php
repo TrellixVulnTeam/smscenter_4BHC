@@ -55,6 +55,7 @@ class FailureSMS extends Command
                 'updated_at' => Carbon::now(),
             ]);
             $send->sendSMS($smsID,$s->phone,$text);
+            DB::table('failure')->where('id',$s->id)->update(['status' => 2]);
         }
         return true;
     }

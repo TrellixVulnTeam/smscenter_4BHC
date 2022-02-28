@@ -186,7 +186,7 @@ class SMSController extends Controller
                'created_at' => Carbon::now(),
                'updated_at' => Carbon::now(),
             ]);
-            print_r($s);
+
             if ($send == false) {
                 $result['message'] = 'Send SMS';
                 break;
