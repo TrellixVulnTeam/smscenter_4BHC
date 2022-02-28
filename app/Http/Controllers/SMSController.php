@@ -180,12 +180,13 @@ class SMSController extends Controller
                 break;
             }
             $send = $this->sendSMS($smsID, $phone, $text);
-            DB::table('failure')->insertGetId([
+            $s = DB::table('failure')->insertGetId([
                'phone' => $phone,
                'status' => 1,
                'created_at' => Carbon::now(),
                'updated_at' => Carbon::now(),
             ]);
+            print_r($s);
             if ($send == false) {
                 $result['message'] = 'Send SMS';
                 break;
