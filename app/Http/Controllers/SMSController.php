@@ -142,7 +142,8 @@ class SMSController extends Controller
         //upsala - https://bistriedengi.kz/index.php?adname=hpnlx
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://oformitzaymvkz.com/';
+
+        $text = 'K sozhaleniju u Vas otkaz, no Vas zhdjot 100% odobrenie u nashih partnjorov https://bit.ly/3o94MgI';
         $type = 3;
         $result['success'] = false;
 

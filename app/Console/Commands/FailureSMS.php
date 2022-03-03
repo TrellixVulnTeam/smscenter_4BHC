@@ -44,7 +44,7 @@ class FailureSMS extends Command
             ->whereTime('created_at','>',Carbon::now()->subHours(1))
             ->where('status',1)->get();
         $send = new SMSController();
-        $text = 'K sozhaleniju vam otkazano. Odnako vy mozhete obratitsja k nashim partnjoram, oni podberut dlja vas zajmy s vysokim odobreniem https://bit.ly/3o94MgI';
+        $text = 'K sozhaleniju u Vas otkaz, no Vas zhdjot 100% odobrenie u nashih partnjorov https://oformitzaymvkz.com/';
         foreach ($sql as $s){
             $smsID = DB::table('sms')->insertGetId([
                 'type' => 52,
