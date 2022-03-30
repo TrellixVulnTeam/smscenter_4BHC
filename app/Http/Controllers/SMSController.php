@@ -61,10 +61,8 @@ class SMSController extends Controller
                 break;
             }
             DB::commit();
-
         } while (false);
         return response()->json($result);
-
     }
 
     // для подписа договора
@@ -98,8 +96,8 @@ class SMSController extends Controller
             }
 
             $text = 'Vam ODOBRENO ' . $amount . ' tg. Dlya polucheniya pereydite ' . $url;
-            $first = DB::table('sms')->where('type',2)->where('leadID',$leadID)->first();
-            if (isset($first)){
+            $first = DB::table('sms')->where('type', 2)->where('leadID', $leadID)->first();
+            if (isset($first)) {
                 $result['message'] = 'Уже отправлено смс';
                 break;
             }
@@ -131,7 +129,6 @@ class SMSController extends Controller
             DB::commit();
         } while (false);
         return response()->json($result);
-
     }
 
 
@@ -182,10 +179,10 @@ class SMSController extends Controller
             }
             $send = $this->sendSMS($smsID, $phone, $text);
             $s = DB::table('failure')->insertGetId([
-               'phone' => $phone,
-               'status' => 1,
-               'created_at' => Carbon::now(),
-               'updated_at' => Carbon::now(),
+                'phone' => $phone,
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             if ($send == false) {
@@ -321,7 +318,6 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
         } while (false);
         return response()->json($result);
     }
@@ -393,10 +389,8 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
         } while (false);
         return response()->json($result);
-
     }
 
     // просрочка хард
@@ -518,7 +512,6 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
         } while (false);
         return response()->json($result);
     }
@@ -583,8 +576,6 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
-
         } while (false);
         return response()->json($result);
     }
@@ -634,7 +625,6 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
         } while (false);
 
         return response()->json($result);
@@ -682,7 +672,6 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-
         } while (false);
 
         return response()->json($result);
@@ -725,7 +714,6 @@ class SMSController extends Controller
             if ($s == 'status=100') {
                 return true;
             }
-
         } catch (BadResponseException $e) {
 
             if ($e->getCode() == 400) {
@@ -735,10 +723,8 @@ class SMSController extends Controller
                 info('Something went wrong. Bad request' . $phone);
             }
             return false;
-
         }
         return false;
-
     }
 
     public function checkCron()
@@ -986,26 +972,79 @@ class SMSController extends Controller
             DB::commit();
         } while (false);
         return response()->json($result);
-
     }
 
+    public function repaymentReminder(Request $request)
+    {
+        $amount = $request->input('amount');
+        $type = $request->input('type');
+        $phone = $request->input('phone');
+        $dealID = $request->input('dealID');
+        $result['success'] = false;
+        do {
+            if (!$dealID) {
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            if (!$phone) {
+                $result['message'] = 'Не передан номер телефона';
+                break;
+            }
+            if (!$type) {
+                $result['message'] = 'Не передан тип сообщение';
+                break;
+            }
 
-    public function resetPassword(Request $request){
+            if (!$amount) {
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+            $text = "Для полного погашение вам не хватает $amount";
+
+            DB::beginTransaction();
+
+            $smsID = SMS::insertGetId([
+                'status' => 100,
+                'type' => $type,
+                'text' => $text,
+                'dealID' => $dealID,
+                'phone' => $phone,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong';
+                break;
+            }
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if (!$send) {
+                break;
+            }
+            $result['success'] = true;
+            DB::commit();
+        } while (false);
+        return response()->json($result);
+    }
+
+    public function resetPassword(Request $request)
+    {
         $phone = $request->input('phone');
         $url = $request->input('url');
         $result['success'] = false;
-        do{
-            if (!$phone){
+        do {
+            if (!$phone) {
                 $result['message'] = 'Не передан телефон';
                 break;
             }
-            if (!$url){
+            if (!$url) {
                 $result['message'] = 'Не передан ссылка';
                 break;
             }
             $date = date('Y-m-d');
-            $check = DB::table('sms')->where('phone',$phone)->where('type',51)->where('created_at','>=',$date)->first();
-            if ($check){
+            $check = DB::table('sms')->where('phone', $phone)->where('type', 51)->where('created_at', '>=', $date)->first();
+            if ($check) {
                 $result['message'] = 'Сегодня вам уже отправлен смс';
                 break;
             }
@@ -1019,7 +1058,7 @@ class SMSController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            if (!$smsID){
+            if (!$smsID) {
                 DB::rollBack();
                 $result['message'] = 'Попробуйте позже';
                 break;
@@ -1030,7 +1069,7 @@ class SMSController extends Controller
             }
             $result['success'] = true;
             DB::commit();
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 
@@ -1122,7 +1161,6 @@ class SMSController extends Controller
         $result['message'] = 'Не передан токен или пользователь не найден';
 
         return response()->json($result);
-
     }
 
     public function filter(Request $request)
@@ -1133,7 +1171,7 @@ class SMSController extends Controller
         $date_from = $request->input('date_from');
         $date_to = $request->input('date_to');
         $sms_type = $request->input('sms_type');
-//->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
+        //->join('sms_statuses', 'sms.status', '=', 'sms_statuses.status')
         $status = [];
         $type = [];
         $statusTable = DB::table('sms_statuses')->select('status', 'name')->get();
@@ -1144,7 +1182,7 @@ class SMSController extends Controller
         foreach ($typeTable as $t) {
             $type[$t->id] = $t->name;
         }
-//'sms_statuses.name as status',
+        //'sms_statuses.name as status',
         //->join('sms_types', 'sms.type', '=', 'sms_types.id')
         $sms = DB::table('sms')
             ->select('sms.text', 'sms.type', 'sms.type as sms_type', 'sms.phone', 'sms.status', 'sms.status as status_id', 'sms.created_at')
@@ -1182,7 +1220,8 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-    public function test(){
+    public function test()
+    {
         $source = "NASH";
         $phone = 77471656497;
         $code = 7292;
@@ -1214,7 +1253,6 @@ class SMSController extends Controller
                 break;
             }
             DB::commit();
-
         } while (false);
         return response()->json($result);
     }

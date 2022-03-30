@@ -34,6 +34,7 @@ Route::get('/advertisement', [SMSController::class,'advertisement']);
 Route::get('/prolongation',[SMSController::class,'prolongation']);
 Route::get('/sign',[SMSController::class,'sign']);
 Route::get('/prolongationReminder',[SMSController::class,'prolongationReminder']);
+Route::get('/repaymentReminder',[SMSController::class,'repaymentReminder']);
 Route::get('/resetPassword',[SMSController::class,'resetPassword']);
 //nash
 Route::get('/identification',[NashController::class,'identification']);
