@@ -140,7 +140,7 @@ class SMSController extends Controller
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
 
-        $text = 'K sozhaleniju u Vas otkaz, no Vas zhdjot 100% odobrenie u nashih partnjorov https://bit.ly/3yXD1xH';
+        $text = 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3yXD1xH';
         $type = 3;
         $result['success'] = false;
 
