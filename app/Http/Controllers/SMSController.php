@@ -1222,7 +1222,7 @@ class SMSController extends Controller
 
     public function test()
     {
-        $source = "NASH";
+        $source = "i-credit.kz";
         $phone = 77471656497;
         $code = 7292;
         $result['success'] = false;
@@ -1245,13 +1245,39 @@ class SMSController extends Controller
                 $result['message'] = 'Something went wrong';
                 break;
             }
+            $login = 'icredit';
+            $password = '7hSBsTvk';
+            $sender = 'icredit';
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
+                    'query' => [
+                        'login' => $login,
+                        'password' => $password,
+                        'id' => $smsID,
+                        'type' => 'message',
+                        'recipient' => $phone,
+                        'sender' => $sender,
+                        'text' => $text
+                    ],
+                ]);
 
-            $send = $this->sendSMS($smsID, $phone, $text);
-            if ($send == true) {
-                $result['success'] = true;
-            } else {
-                break;
+                $s = $response->getBody()->getContents();
+                info($response->getBody());
+                if ($s == 'status=100') {
+                    return true;
+                }
+            } catch (BadResponseException $e) {
+
+                if ($e->getCode() == 400) {
+                    info('Something went wrong. Bad request' . $phone);
+                } elseif ($e->getCode() == 401) {
+
+                    info('Something went wrong. Bad request' . $phone);
+                }
+                return false;
             }
+
             DB::commit();
         } while (false);
         return response()->json($result);
