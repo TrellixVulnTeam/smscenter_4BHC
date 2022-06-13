@@ -1031,15 +1031,20 @@ class SMSController extends Controller
     public function resetPassword(Request $request)
     {
         $phone = $request->input('phone');
-        $url = $request->input('url');
+        $iin = $request->input('iin');
+        $id = $request->input('id');
         $result['success'] = false;
         do {
             if (!$phone) {
                 $result['message'] = 'Не передан телефон';
                 break;
             }
-            if (!$url) {
-                $result['message'] = 'Не передан ссылка';
+            if (!$iin) {
+                $result['message'] = 'Не передан иин';
+                break;
+            }
+            if (!$id){
+                $result['message'] = 'Не передан айди';
                 break;
             }
             $date = date('Y-m-d');
@@ -1048,6 +1053,7 @@ class SMSController extends Controller
                 $result['message'] = 'Сегодня вам уже отправлен смс';
                 break;
             }
+            $url = "https://i-credit.kz/api/resetPassword?iin=$iin&id=$id&phone=$phone";
             $text = "dlya vosstanovlenie parolya pereydite po ssilke $url";
             DB::beginTransaction();
             $smsID = DB::table('sms')->insertGetId([
