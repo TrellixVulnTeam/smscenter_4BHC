@@ -694,7 +694,7 @@ class SMSController extends Controller
                 return false;*/
         $login = 'icredit';
         $password = '7hSBsTvk';
-        $sender = 'MESSAGE';
+        $sender = 'ICREDIT';
         $http = new Client(['verify' => false]);
         try {
             $response = $http->get('http://service.sms-consult.kz/get.ashx?', [
