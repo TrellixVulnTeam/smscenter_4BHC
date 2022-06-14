@@ -1053,7 +1053,7 @@ class SMSController extends Controller
                 $result['message'] = 'Сегодня вам уже отправлен смс';
                 break;
             }
-            $url = "https://i-credit.kz/api/resetPassword?iin=$iin&id=$id&phone=$phone";
+            $url = "https://i-credit.kz/resetPassword?iin=$iin&id=$id&phone=$phone";
             $text = "dlya vosstanovlenie parolya pereydite po ssilke $url";
             DB::beginTransaction();
             $smsID = DB::table('sms')->insertGetId([
