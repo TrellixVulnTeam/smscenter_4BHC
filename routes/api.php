@@ -61,3 +61,5 @@ Route::group(['middleware' => 'cors'],function(){
 });
 
 Route::get('/test',[SMSController::class,'test']);
+//Reminder soft
+Route::post('/softReminder',[SMSController::class,'softReminder']);

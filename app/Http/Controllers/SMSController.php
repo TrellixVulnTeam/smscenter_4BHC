@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendSMS;
 use App\Models\SMS;
 use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use http\Exception\BadConversionException;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -1286,6 +1288,28 @@ class SMSController extends Controller
 
             DB::commit();
         } while (false);
+        return response()->json($result);
+    }
+
+    public function softReminder(Request $request){
+        $data = $request->all();
+        do{
+            if (count($data)<1){
+                $result['message'] = 'Не передан дата';
+                break;
+            }
+            foreach ($data as $d){
+
+                $queue = [
+                  'phone' => $d['phone'],
+                  'type' => $d['type'],
+                  'text' => $d['text'],
+                  'dealID' => $d['dealID'],
+                ];
+                SendSMS::dispatch($queue);
+            }
+            $result['success'] = true;
+        }while(false);
         return response()->json($result);
     }
 }
