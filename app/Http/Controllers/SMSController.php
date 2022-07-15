@@ -1302,7 +1302,7 @@ class SMSController extends Controller
 
                 $queue = [
                   'phone' => $d['phone'],
-                  'type' => $d['type'],
+                  // 'type' => $d['type'],
                   'text' => $d['text'],
                   'dealID' => $d['dealID'],
                 ];
