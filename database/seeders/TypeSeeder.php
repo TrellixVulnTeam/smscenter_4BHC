@@ -110,5 +110,127 @@ class TypeSeeder extends Seeder
             'name' => 'Реструктуризация',
             'description' => 'Реструктуризация',
         ]);
+        SmsType::create([
+            'name' => 'Ваш займ продлен',
+            'description' => 'Ваш займ продлен',
+        ]);
+        SmsType::create([
+            'name' => 'Для продление вам не хватает',
+            'description' => 'Для продление вам не хватает',
+        ]);
+        SmsType::create([
+            'name' => 'Для продление вам не хватает',
+            'description' => 'Для продление вам не хватает',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-9',
+            'description' => 'Хард-9',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-10',
+            'description' => 'Хард-10',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-11',
+            'description' => 'Хард-11',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-14',
+            'description' => 'Хард-14',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-20',
+            'description' => 'Хард-20',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-25',
+            'description' => 'Хард-25',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-30',
+            'description' => 'Хард-30',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-35',
+            'description' => 'Хард-35',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-40',
+            'description' => 'Хард-40',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-45',
+            'description' => 'Хард-45',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-50',
+            'description' => 'Хард-50',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-55',
+            'description' => 'Хард-55',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-60',
+            'description' => 'Хард-60',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-65',
+            'description' => 'Хард-65',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-69',
+            'description' => 'Хард-69',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-70',
+            'description' => 'Хард-70',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-80',
+            'description' => 'Хард-80',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-85',
+            'description' => 'Хард-85',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-86',
+            'description' => 'Хард-86',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-87',
+            'description' => 'Хард-87',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-88',
+            'description' => 'Хард-88',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-89',
+            'description' => 'Хард-89',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-90',
+            'description' => 'Хард-90',
+        ]);
+        SmsType::create([
+            'name' => 'Код подтверждение NashCompany',
+            'description' => 'Код подтверждение NashCompany',
+        ]);
+        SmsType::create([
+            'name' => 'Восстановление пароля',
+            'description' => 'Восстановление пароля',
+        ]);
+        SmsType::create([
+            'name' => 'Отказной трафик',
+            'description' => 'Отказной трафик',
+        ]);
+        SmsType::create([
+            'name' => 'Для полного погашение не хватает',
+            'description' => 'Для полного погашение не хватает',
+        ]);
+
+
     }
 }
