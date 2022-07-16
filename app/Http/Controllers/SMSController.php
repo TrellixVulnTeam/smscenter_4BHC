@@ -121,7 +121,6 @@ class SMSController extends Controller
             }
 
 
-
             $send = $this->sendSMS($smsID, $phone, $text);
             if ($send == false) {
                 break;
@@ -1045,7 +1044,7 @@ class SMSController extends Controller
                 $result['message'] = 'Не передан иин';
                 break;
             }
-            if (!$id){
+            if (!$id) {
                 $result['message'] = 'Не передан айди';
                 break;
             }
@@ -1291,25 +1290,26 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-    public function softReminder(Request $request){
+    public function softReminder(Request $request)
+    {
         $data = $request->all();
-        do{
-            if (count($data)<1){
+        do {
+            if (count($data) < 1) {
                 $result['message'] = 'Не передан дата';
                 break;
             }
-            foreach ($data as $d){
+            foreach ($data as $d) {
 
                 $queue = [
-                  'phone' => $d['phone'],
-                  // 'type' => $d['type'],
-                  'text' => $d['text'],
-                  'dealID' => $d['dealID'],
+                    'phone' => $d['phone'],
+                    'type' => $d['type'],
+                    'text' => $d['text'],
+                    'dealID' => $d['dealID'],
                 ];
                 SendSMS::dispatch($queue);
             }
             $result['success'] = true;
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 }
