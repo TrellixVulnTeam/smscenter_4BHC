@@ -230,6 +230,34 @@ class TypeSeeder extends Seeder
             'name' => 'Для полного погашение не хватает',
             'description' => 'Для полного погашение не хватает',
         ]);
+        SmsType::create([
+            'name' => 'Хард-13',
+            'description' => 'Хард-13',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-16',
+            'description' => 'Хард-16',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-19',
+            'description' => 'Хард-19',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-22',
+            'description' => 'Хард-22',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-28',
+            'description' => 'Хард-28',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-29',
+            'description' => 'Хард-29',
+        ]);
+        SmsType::create([
+            'name' => 'Хард-75',
+            'description' => 'Хард-75',
+        ]);
 
 
     }
