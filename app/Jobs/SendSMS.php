@@ -47,6 +47,7 @@ class SendSMS implements ShouldQueue
         $sender = 'ICREDIT';
         $smsID = DB::table('sms')->insertGetId([
             'type' => $type,
+            'text' => $text,
             'status' => 100,
             'phone' => $phone,
             'dealID' => $dealID,
