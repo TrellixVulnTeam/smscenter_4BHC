@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\FailureClient;
 use App\Jobs\SendSMS;
 use App\Models\SMS;
 use App\Models\User;
@@ -141,7 +142,7 @@ class SMSController extends Controller
         $phone = $request->input('phone');
         $leadID = $request->input('leadID');
 
-        $text = 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3yXD1xH';
+        $text = 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3RMOkzU';
         $type = 3;
         $result['success'] = false;
 
@@ -190,6 +191,20 @@ class SMSController extends Controller
                 $result['message'] = 'Send SMS';
                 break;
             }
+            $data = [
+              'phone' => $phone,
+              'leadID' => $leadID,
+              'type' => 62,
+              'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3aF36bd',
+            ];
+            $data2 = [
+                'phone' => $phone,
+                'leadID' => $leadID,
+                'type' => 63,
+                'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3PeLKAU',
+            ];
+            FailureClient::dispatch($data)->delay(Carbon::now()->addHour(1));
+            FailureClient::dispatch($data2)->delay(Carbon::now()->addHour(2));
             $result['success'] = true;
 
             DB::commit();
