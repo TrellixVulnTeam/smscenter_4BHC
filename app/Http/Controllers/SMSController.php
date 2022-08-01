@@ -201,7 +201,7 @@ class SMSController extends Controller
                 'phone' => $phone,
                 'leadID' => $leadID,
                 'type' => 63,
-                'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3PeLKAU',
+                'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3oFZitH',
             ];
             FailureClient::dispatch($data)->delay(Carbon::now()->addHour(1));
             FailureClient::dispatch($data2)->delay(Carbon::now()->addHour(2));
