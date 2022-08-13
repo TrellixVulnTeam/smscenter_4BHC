@@ -133,7 +133,63 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
+    public function typeTwoRepeat(Request $request){
+        $phone = $request->input('phone');
+        $amount = $request->input('amount');
+        $leadID = $request->input('leadID');
+        $url = $request->input('url');
+        $result['success'] = false;
 
+        do {
+            if (!$phone) {
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+
+            if (!$amount) {
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+
+            if (!$leadID) {
+                $result['message'] = 'Не передан id лида';
+                break;
+            }
+
+            if (!$url) {
+                $result['message'] = 'Не передан ссылка';
+                break;
+            }
+
+            $text = 'Vam ODOBRENO ' . $amount . ' tg. Dlya polucheniya pereydite ' . $url;
+            DB::beginTransaction();
+            $smsID = SMS::insertGetId([
+                'type' => 2,
+                'text' => $text,
+                'phone' => $phone,
+                'status' => 100,
+                'leadID' => $leadID,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if (!$smsID) {
+                DB::rollBack();
+                $result['message'] = 'Something went wrong!';
+                break;
+            }
+
+
+            $send = $this->sendSMS($smsID, $phone, $text);
+            if ($send == false) {
+                break;
+            }
+            $result['success'] = true;
+
+            DB::commit();
+        } while (false);
+        return response()->json($result);
+    }
     // отказ клиенту
     public function failureClient(Request $request)
     {
