@@ -99,11 +99,7 @@ class SMSController extends Controller
             }
 
             $text = 'Vam ODOBRENO ' . $amount . ' tg. Dlya polucheniya pereydite ' . $url;
-            $first = DB::table('sms')->where('type', 2)->where('leadID', $leadID)->first();
-            if (isset($first)) {
-                $result['message'] = 'Уже отправлено смс';
-                break;
-            }
+
             DB::beginTransaction();
             $smsID = SMS::insertGetId([
                 'type' => 2,
@@ -133,7 +129,8 @@ class SMSController extends Controller
         return response()->json($result);
     }
 
-    public function typeTwoRepeat(Request $request){
+    public function typeTwoRepeat(Request $request)
+    {
         $phone = $request->input('phone');
         $amount = $request->input('amount');
         $leadID = $request->input('leadID');
@@ -190,6 +187,7 @@ class SMSController extends Controller
         } while (false);
         return response()->json($result);
     }
+
     // отказ клиенту
     public function failureClient(Request $request)
     {
@@ -248,10 +246,10 @@ class SMSController extends Controller
                 break;
             }
             $data = [
-              'phone' => $phone,
-              'leadID' => $leadID,
-              'type' => 62,
-              'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3aF36bd',
+                'phone' => $phone,
+                'leadID' => $leadID,
+                'type' => 62,
+                'text' => 'Вам ОДОБРЕНО 150 тысяч тенге https://bit.ly/3aF36bd',
             ];
             $data2 = [
                 'phone' => $phone,
@@ -1382,5 +1380,41 @@ class SMSController extends Controller
             $result['success'] = true;
         } while (false);
         return response()->json($result);
+    }
+
+    public function infobip()
+    {
+        $http = new Client(['verify' => false]);
+        try {
+            $response = $http->request('POST', 'https://xr5ep4.api.infobip.com/sms/2/text/advanced', [
+                'headers' => [
+                    'Authorization' => '5aec06024478c7dc093f9ebcb40059d6-7b002e63-a891-48b4-a4c5-2edb3c065926',
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+                'form_params' => [
+                    'messages' => [
+                        'destination' => [
+                            'to' => '77025374330',
+                        ],
+                        'from' => 'InfoSMS',
+                        'text' => 'Тестовая отправка',
+                    ],
+                ],
+            ]);
+
+            $s = $response->getBody()->getContents();
+            var_dump($s);
+        } catch (BadResponseException $e) {
+            var_dump($e);
+            if ($e->getCode() == 400) {
+                info('Something went wrong. Bad request');
+            } elseif ($e->getCode() == 401) {
+
+                info('Something went wrong. Bad request');
+            }
+            return false;
+        }
+        return false;
     }
 }
