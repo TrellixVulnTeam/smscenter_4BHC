@@ -99,7 +99,6 @@ class SMSController extends Controller
             }
 
             $text = 'Vam ODOBRENO ' . $amount . ' tg. Dlya polucheniya pereydite ' . $url;
-
             DB::beginTransaction();
             $smsID = SMS::insertGetId([
                 'type' => 2,
